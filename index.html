@@ -881,6 +881,97 @@ function getPrecio() {
   return precio;
 }
 
+
+// Generar mensaje personalizado por tratamiento
+function generarMensajeRecordatorio(tratN, tratK, fecha, hora, zonas=[]) {
+  const linea_base = `Hola, te recordamos tu turno de ${tratN} el día ${fecha} a las ${hora} hs. 🌺\n\n`;
+  
+  let instrucciones = '';
+  
+  // Definir instrucciones por tratamiento
+  const msgs = {
+    'lp': 'Recordá venir sin máscara de pestañas ni maquillaje de cejas.\nLuego del tratamiento no podés mojarte ni maquillarte las pestañas por 24hs.\nDuración aprox: 1 hora',
+    'pc': '', // Sin instrucciones
+    'lac': 'Recordá venir sin maquillaje de cejas (en lo posible).\nLuego del tratamiento no podés mojarte ni maquillarte por 24hs.\nDuración aprox: 30/45 min',
+    'lc': 'Recordá venir sin maquillaje (en lo posible).\nEvitá el sol las próximas 48hs.\nReforzá protección solar los días posteriores.\nDuración aprox: 1:30/45 hs',
+    'peeling': 'No realizar actividad física el día del tratamiento.\nEvitá el sol los próximos días.\nReforzá protección solar.\nDuración aprox: 1:30 hs',
+    'dl': 'Vení con ropa cómoda.\nLa zona a tratar debe estar descubierta.' + (zonas.includes('piernas') ? '\nSi te haces piernas, las maniobras van desde la ingle hasta la punta de los pies.' : '')
+  };
+  
+  // Para combos, combinar instrucciones
+  if (tratK.startsWith('combo')) {
+    const comboParts = {
+      'combo1': ['lp', 'pc'], // Lifting + Perfilado
+      'combo2': ['lp', 'lac'], // Lifting + Laminado
+      'combo3': ['lc', 'lp'], // Limpieza + Lifting
+      'combo4': ['lc', 'pc'], // Limpieza + Perfilado
+      'combo5': ['lc', 'dl'], // Limpieza + Drenaje
+      'combo6': ['lp', 'dl'], // Lifting + Drenaje
+      'combo7': ['lc', 'lp', 'pc'], // Limpieza + Lifting + Perfilado
+      'combo8': ['lc', 'lp', 'lac'], // Limpieza + Lifting + Laminado
+      'combo9': ['lc', 'lp', 'dl', 'pc'], // Limpieza + Lifting + Drenaje + Perfilado
+      'combo10': ['lc', 'lp', 'dl', 'lac'] // Limpieza + Lifting + Drenaje + Laminado
+    };
+    
+    const parts = comboParts[tratK] || [];
+    const instrArr = [];
+    parts.forEach(p => {
+      if (msgs[p]) instrArr.push(msgs[p]);
+    });
+    instrucciones = instrArr.filter(x => x).join('\n\n');
+  } else {
+    instrucciones = msgs[tratK] || '';
+  }
+  
+  const footer = '\n\nRecordá que contamos con 15 minutos de tolerancia pasado el horario del turno. La seña es reembolsable únicamente cancelando con más de 24hs de anticipación, de lo contrario se pierde.\n\nEste es un momento para vos! Vení tranquila/o a disfrutarlo 🩷\nCualquier duda podés consultarme.\n\nAmapola Studio';
+  
+  return linea_base + (instrucciones ? instrucciones + footer : 'Cualquier duda podés consultarme.\n' + footer);
+}
+
+
+
+function abrirWAAdmin(tel, msg) {
+  const cfg = getCfg();
+  const numero = cfg.waBusiness || '5491159029792';
+  const url = 'https://wa.me/' + numero + '?text=' + msg;
+  window.open(url, '_blank');
+}
+
+
+async function enviarEmailTurno(nom, ape, tel, tratN, fecha, hora, precio) {
+  try {
+    const response = await fetch('https://brtuieevrokgxreypyox.supabase.co/functions/v1/swift-function', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nom, ape, tel, tratN, fecha, hora, precio })
+    });
+    if (!response.ok) console.error('Error enviando email');
+  } catch (error) {
+    console.error('Error al enviar email:', error);
+  }
+}
+
+
+function cancelarTurnoCliente(id, nom, tratN) {
+  if (!confirm(`¿Cancelar el turno de ${tratN}? Esta acción no se puede deshacer.`)) return;
+  
+  const turnos = getTurnos();
+  const turno = turnos.find(t => t.id === id);
+  
+  if (turno) {
+    const papelera = getPapelera();
+    papelera.unshift({ ...turno, eliminadoEn: new Date().toISOString() });
+    if (papelera.length > 30) papelera.pop();
+    setPapelera(papelera);
+  }
+  
+  setTurnos(turnos.filter(t => t.id !== id));
+  sbDelete('turnos', 'id=eq.' + id).catch(function(){});
+  
+  alert('Turno cancelado correctamente');
+  buscarTurnos();
+}
+
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('p-admin-login').classList.remove('active');
@@ -1006,6 +1097,7 @@ async function buscarTurnos() {
           ${pagada ? '✅ Seña confirmada' : '⚠️ Seña pendiente'}
         </span>
         ${!pagada ? `<br><a href="https://wa.me/5491159029792?text=${wpMsg}" target="_blank" style="display:inline-flex;align-items:center;gap:0.4rem;margin-top:0.6rem;padding:0.5rem 1rem;background:#25D366;color:#FFF;border-radius:20px;text-decoration:none;font-size:0.85rem;font-weight:600;">📎 Enviar comprobante por WA</a>` : ''}
+        <br><button onclick="cancelarTurnoCliente('${t.id}','${t.nom}','${t.tratN}')" style="margin-top:0.6rem;padding:0.5rem 1rem;background:#E74C3C;color:#FFF;border:none;border-radius:20px;font-size:0.85rem;font-weight:600;cursor:pointer;">❌ Cancelar este turno</button>
       </div>
     `;
   });
@@ -1287,6 +1379,13 @@ function irFin() {
     origen: turno.origen, at: turno.at
   };
   sbInsert('turnos', sbData).catch(function(){});
+  
+  // Enviar email de notificación
+  const DIAS3 = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  const MESES3 = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const f = new Date(est.fecha + 'T12:00');
+  const fechaFormato = DIAS3[f.getDay()] + ' ' + f.getDate() + ' de ' + MESES3[f.getMonth()];
+  enviarEmailTurno(est.cliente.nom, est.cliente.ape, est.cliente.tel, t.n, fechaFormato, mStr(est.hora), precio);
   const turnos = getTurnos();
   turnos.push(turno);
   setTurnos(turnos);
@@ -1303,13 +1402,8 @@ function irFin() {
   const aliasActual = getCfg().alias;
   const el = document.getElementById('alias-fin');
   if (el) el.textContent = aliasActual;
-  const wpTxt = encodeURIComponent(
-    'Hola! Te envío el comprobante de seña 💸' + '\n' +
-    'Turno: ' + t.n + '\n' +
-    'Fecha: ' + fStr + ' a las ' + mStr(est.hora) + ' hs' + '\n' +
-    'Nombre: ' + est.cliente.nom + ' ' + est.cliente.ape + '\n' +
-    'Alias transferido: ' + aliasActual
-  );
+  const msgPersonalizado = generarMensajeRecordatorio(t.n, est.trat, fStr, mStr(est.hora), est.zonas);
+  const wpTxt = encodeURIComponent(msgPersonalizado);
   const btnWp = document.getElementById('btn-wp-comprobante');
   if (btnWp) btnWp.href = 'https://wa.me/5491159029792?text=' + wpTxt;
 
@@ -1451,7 +1545,8 @@ function renderAgenda() {
     const heightPx = durSlots * SLOT_H - 4;
     const paid = t.señaPagada;
     const wpNum = t.tel.replace(/\D/g,'');
-    const wpMsg = encodeURIComponent(`Hola ${t.nom}, te recordamos tu turno de ${t.tratN} el día ${fStr} a las ${mStr(t.hora)} hs. 🌺 Amapola Studio`);
+    const wpMsgAgenda = generarMensajeRecordatorio(t.tratN, t.trat, fStr, mStr(t.hora), t.zonas || []);
+    const wpMsg = encodeURIComponent(wpMsgAgenda);
 
     // Si el bloque es de 30min (1 slot = 60px), usar layout horizontal compacto
     const is30min = durSlots === 1;
@@ -1480,7 +1575,7 @@ function renderAgenda() {
         <div style="font-size:0.92rem;color:var(--adm-text);margin-top:3px;font-weight:600;">${t.tratN}</div>
         <div style="font-size:0.85rem;color:var(--adm-hint);margin-top:2px;">👤 ${t.nom} ${t.ape}</div>
         <div style="margin-top:6px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
-          <a class="btn-wp" href="https://wa.me/${wpNum}?text=${wpMsg}" target="_blank" onclick="event.stopPropagation()">💬 WhatsApp</a>
+          <a class="btn-wp" href="#" onclick="abrirWAAdmin('${wpNum}','${wpMsg}'); event.stopPropagation();" style="cursor:pointer;">💬 WhatsApp</a>
           <span style="font-size:0.8rem;color:${paid ? '#27AE60' : '#E74C3C'};">${paid ? '✓ Seña cobrada' : '⚠️ Seña pendiente'}</span>
         </div>
       </div>`;
@@ -1767,7 +1862,8 @@ function renderListaTurnos() {
       const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
       const fStr = DIAS[fObj.getDay()] + ' ' + fObj.getDate() + ' de ' + MESES[fObj.getMonth()];
       const wpNum = t.tel.replace(/\D/g,'');
-      const wpMsg = encodeURIComponent(`Hola ${t.nom}, te recordamos tu turno de ${t.tratN} el ${fStr} a las ${mStr(t.hora)} hs. 🌺 Amapola Studio`);
+      const wpMsgTxt = generarMensajeRecordatorio(t.tratN, t.trat, fStr, mStr(t.hora), t.zonas || []);
+      const wpMsg = encodeURIComponent(wpMsgTxt);
 
       html += `<div class="turno-item">
         <strong>🌺 ${t.tratN}</strong><br>
@@ -1777,7 +1873,7 @@ function renderListaTurnos() {
         ${t.zonas && t.zonas.length > 0 ? '<br>🗺️ Zonas: ' + t.zonas.join(', ') : ''}
         ${t.notas ? '<br>📝 ' + t.notas : ''}
         <div style="margin-top:0.7rem;display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
-          <a class="btn-wp" href="https://wa.me/${wpNum}?text=${wpMsg}" target="_blank">💬 WhatsApp</a>
+          <button class="btn-wp" onclick="abrirWAAdmin('${wpNum}','${wpMsg}')">💬 WhatsApp</button>
           <div class="seña-toggle">
             <input type="checkbox" id="seña-${t.id}" ${t.señaPagada ? 'checked' : ''} onchange="toggleSeñaPagada('${t.id}')">
             <label for="seña-${t.id}">Seña cobrada</label>
@@ -1975,8 +2071,10 @@ document.getElementById('mn-fecha').addEventListener('change', actualizarHorasMa
 
 // CONFIG
 function renderConfig() {
-  document.getElementById('cfg-alias').value = getCfg().alias;
-  document.getElementById('cfg-pass').value = getCfg().pass;
+  const cfgActual = getCfg();
+  document.getElementById('cfg-alias').value = cfgActual.alias;
+  document.getElementById('cfg-pass').value = cfgActual.pass;
+  document.getElementById('cfg-wa-business').value = cfgActual.waBusiness || '';
 
   const precios = getPrecios();
   let html = '';
@@ -1994,7 +2092,8 @@ function renderConfig() {
 function guardarConfig() {
   const cfg = {
     alias: document.getElementById('cfg-alias').value.trim(),
-    pass: document.getElementById('cfg-pass').value
+    pass: document.getElementById('cfg-pass').value,
+    waBusiness: document.getElementById('cfg-wa-business').value.trim() || ''
   };
   setCfg(cfg);
   alert('Configuración guardada');
