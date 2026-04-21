@@ -221,8 +221,10 @@ p { line-height:1.6; margin-bottom:1rem; }
     </div>
   </div>
   
-  <div class="divider-line"><span>@amapolastudio.cs</span></div>
-  <div style="text-align:center;margin-top:0.6rem;font-size:0.8rem;color:var(--texto-hint);">📞 +54 9 11 5902-9792</div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin-top:1.2rem;">
+    <a href="https://www.instagram.com/amapolastudio.cs/" target="_blank" style="display:flex;align-items:center;gap:0.5rem;text-decoration:none;color:var(--rojo);font-weight:600;font-size:0.95rem;background:#FFF;border:1.5px solid var(--rojo);border-radius:20px;padding:0.5rem 1.2rem;transition:all 0.18s;" onmouseover="this.style.background='var(--rojo)';this.style.color='#FFF'" onmouseout="this.style.background='#FFF';this.style.color='var(--rojo)'">📷 @amapolastudio.cs</a>
+    <a href="https://wa.me/5491159029792" target="_blank" style="display:flex;align-items:center;gap:0.5rem;text-decoration:none;color:#FFF;font-weight:600;font-size:0.95rem;background:#25D366;border:1.5px solid #25D366;border-radius:20px;padding:0.5rem 1.2rem;transition:all 0.18s;" onmouseover="this.style.background='#1DA851'" onmouseout="this.style.background='#25D366'">📞 +54 9 11 5902-9792</a>
+  </div>
 </div>
 
 <!-- SERVICIOS -->
@@ -423,8 +425,13 @@ p { line-height:1.6; margin-bottom:1rem; }
     <h2 style="margin-bottom:1rem;">Resumen del turno</h2>
     <div id="resumen-box" style="line-height:1.8;margin-bottom:1.5rem;"></div>
     
-    <div style="background:#FFF3CD;padding:1rem;border-radius:8px;border-left:4px solid #FFC107;margin-bottom:1.5rem;font-size:0.9rem;">
-      <strong>Importante:</strong> Para reservar tu turno, transferí la seña de <strong id="monto-num"></strong> al alias <strong id="alias-show"></strong>. Una vez hecha la transferencia, ¡tu turno queda confirmado!
+    <div style="background:#FFF3CD;padding:1rem;border-radius:8px;border-left:4px solid #FFC107;margin-bottom:1rem;font-size:0.9rem;">
+      <strong>Importante:</strong> Para confirmar tu turno, transferí la seña de <strong id="monto-num"></strong> al siguiente alias:
+    </div>
+    <div style="background:#FFF;border:2.5px solid var(--rojo);border-radius:14px;padding:1.2rem 1rem;margin-bottom:1.5rem;text-align:center;">
+      <div style="font-size:0.75rem;color:var(--texto-hint);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.3rem;font-weight:600;">Alias de transferencia</div>
+      <div id="alias-show" style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--rojo);letter-spacing:0.04em;"></div>
+      <div style="font-size:0.75rem;color:var(--texto-hint);margin-top:0.4rem;">Mercado Pago / banco · Pesos argentinos</div>
     </div>
     
     <div style="background:#F8D7DA;padding:1rem;border-radius:8px;border-left:4px solid #E74C3C;font-size:0.85rem;line-height:1.6;">
@@ -443,8 +450,8 @@ p { line-height:1.6; margin-bottom:1rem; }
     <h2>¡Todo listo!</h2>
     <p id="txt-fin"></p>
     <div style="margin-top:1rem;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--dorado);font-size:1rem;">Te esperamos en Amapola Studio</div>
-    <a class="ig-link" href="https://www.instagram.com/amapolastudio.cs" target="_blank">📷 @amapolastudio.cs</a>
-    <a class="ig-link" href="tel:+5491159029792" style="margin-top:0.5rem;">📞 +54 9 11 5902-9792</a>
+    <a class="ig-link" href="https://www.instagram.com/amapolastudio.cs/" target="_blank">📷 @amapolastudio.cs</a>
+    <a class="ig-link" href="https://wa.me/5491159029792" target="_blank" style="margin-top:0.5rem;">📞 +54 9 11 5902-9792</a>
   </div>
 </div>
 
@@ -1083,10 +1090,16 @@ function renderHorarios() {
     }).filter(Boolean);
   }
 
+  // Calcular minutos actuales para bloquear horarios pasados si es hoy
+  const esHoy = est.fecha === fISOlocal(new Date());
+  const ahora = new Date();
+  const minutosActuales = ahora.getHours() * 60 + ahora.getMinutes();
+
   let html = '';
   rangos.forEach(([inicio, fin]) => {
     for (let m = inicio; m < fin; m += 30) {
-      const disponible = esDisp(m, est.trat, est.fecha);
+      const yaPaso = esHoy && m <= minutosActuales;
+      const disponible = !yaPaso && esDisp(m, est.trat, est.fecha);
       const selected = est.hora === m;
       html += `<div class="hs-chip ${disponible ? '' : 'disabled'} ${selected ? 'selected' : ''}" 
                onclick="${disponible ? `selHora(${m})` : ''}">${mStr(m)}</div>`;
