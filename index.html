@@ -442,16 +442,57 @@ p { line-height:1.6; margin-bottom:1rem; }
   </div>
 </div>
 
+
+<!-- P-SEÑA-WP: Enviar comprobante -->
+<div id="p-sena-wp" class="page" style="align-items:center;justify-content:center;background:var(--crema);padding:2rem;position:relative;">
+  <button class="btn-volver" onclick="showPage('p3')" title="Volver">&#8592;</button>
+  <div class="fin-card" style="max-width:420px;">
+    <div style="font-size:2.5rem;">🧾</div>
+    <h2 style="margin-top:0.8rem;">¡Turno reservado!</h2>
+    <p id="txt-sena-wp" style="color:var(--texto);margin:0.5rem 0 1rem;"></p>
+
+    <div style="background:#FFF3CD;border-left:4px solid #FFC107;border-radius:8px;padding:1rem;margin-bottom:1.2rem;font-size:0.88rem;text-align:left;line-height:1.6;">
+      <strong>⚠️ Tu turno está reservado pero pendiente de confirmación.</strong><br>
+      Para confirmarlo, transferí la seña de <strong id="sena-monto-wp"></strong> al alias:<br>
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--rojo);font-weight:700;text-align:center;margin:0.6rem 0;" id="sena-alias-wp"></div>
+      Luego enviá el comprobante por WhatsApp usando el botón de abajo.
+    </div>
+
+    <a id="btn-wp-sena" href="#" target="_blank"
+       style="display:flex;align-items:center;justify-content:center;gap:0.6rem;width:100%;padding:1rem;background:#25D366;color:#FFF;border:none;border-radius:30px;font-size:1.1rem;font-weight:700;text-decoration:none;margin-bottom:0.8rem;box-sizing:border-box;">
+      📲 Enviar comprobante por WhatsApp
+    </a>
+
+    <button class="btn-crema" onclick="showPage('p-fin')" style="margin-top:0;">
+      Ya envié el comprobante ✓
+    </button>
+
+    <div style="margin-top:1rem;font-size:0.78rem;color:var(--texto-hint);line-height:1.5;">
+      Sin el comprobante, el turno puede ser liberado a otro cliente.
+    </div>
+  </div>
+</div>
+
 <!-- FIN -->
 <div id="p-fin" class="page" style="position:relative;align-items:center;justify-content:center;background:var(--crema);padding:2rem;">
   <button class="btn-volver" onclick="showPage('p-home')" title="Volver">&#8592;</button>
   <div class="fin-card">
-    <div style="font-size:2.8rem;">✅</div>
-    <h2>¡Todo listo!</h2>
+    <div style="font-size:2.8rem;">📋</div>
+    <h2>¡Turno reservado!</h2>
     <p id="txt-fin"></p>
-    <div style="margin-top:1rem;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--dorado);font-size:1rem;">Te esperamos en Amapola Studio</div>
+
+    <div style="background:#FFF3CD;border-left:4px solid #FFC107;border-radius:8px;padding:1rem;margin:1rem 0;font-size:0.88rem;line-height:1.6;text-align:left;">
+      <strong>⚠️ Falta confirmar tu seña</strong><br>
+      Tu turno está <b>reservado pero pendiente</b>. Para confirmarlo, transferí <b>$10.000</b> al alias <b id="alias-fin">AMAPOLA.STUDIO</b> y envianos el comprobante por WhatsApp.
+    </div>
+
+    <a id="btn-wp-comprobante" href="#" target="_blank"
+       style="display:flex;align-items:center;justify-content:center;gap:0.6rem;width:100%;padding:1rem;background:#25D366;color:#FFF;border-radius:30px;text-decoration:none;font-size:1rem;font-weight:700;margin-bottom:0.8rem;box-shadow:0 2px 8px rgba(37,211,102,0.3);">
+      📎 Enviar comprobante por WhatsApp
+    </a>
+
+    <div style="margin-top:0.5rem;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--dorado);font-size:0.95rem;">Te esperamos en Amapola Studio</div>
     <a class="ig-link" href="https://www.instagram.com/amapolastudio.cs/" target="_blank">📷 @amapolastudio.cs</a>
-    <a class="ig-link" href="https://wa.me/5491159029792" target="_blank" style="margin-top:0.5rem;">📞 +54 9 11 5902-9792</a>
   </div>
 </div>
 
@@ -884,10 +925,9 @@ function renderServicios() {
 }
 
 // CONSULTA TURNO
-function buscarTurnos() {
+async function buscarTurnos() {
   const nom = document.getElementById('cons-nombre').value.trim();
   const ape = document.getElementById('cons-apellido').value.trim();
-  const pais = document.getElementById('cons-pais').value;
   const tel = document.getElementById('cons-tel').value.trim();
   
   if (!nom || !ape || !tel) {
@@ -900,15 +940,38 @@ function buscarTurnos() {
     alert('El teléfono debe tener entre 8 y 10 dígitos');
     return;
   }
-  
-  const telCompleto = pais + tel;
-  const turnos = getTurnos().filter(t => 
-    t.nom.toLowerCase() === nom.toLowerCase() && 
-    t.ape.toLowerCase() === ape.toLowerCase() && 
-    t.tel === telCompleto
-  );
-  
+
   const resultado = document.getElementById('consulta-resultado');
+  resultado.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--texto-hint);">🔍 Buscando...</div>';
+
+  // Buscar por nombre+apellido en Supabase (sin filtrar por tel en la query,
+  // porque el tel guardado lleva prefijo +54 pero el usuario escribe solo los números)
+  let allTurnos = [];
+  try {
+    const data = await sbGet('turnos',
+      'nom=ilike.' + encodeURIComponent('*' + nom + '*') +
+      '&ape=ilike.' + encodeURIComponent('*' + ape + '*') +
+      '&order=fecha.asc'
+    );
+    if (data && data.length > 0) allTurnos = data;
+  } catch {}
+
+  // Fallback: cache local (siempre intentar, por si Supabase falla o está vacío)
+  if (allTurnos.length === 0) {
+    allTurnos = getTurnos().filter(t =>
+      t.nom.toLowerCase().includes(nom.toLowerCase()) &&
+      t.ape.toLowerCase().includes(ape.toLowerCase())
+    );
+  }
+
+  // Filtrar por teléfono flexible: comparar solo los últimos 8 dígitos
+  // El tel guardado puede ser "+5491159029792", el ingresado "1159029792"
+  const telDigits = tel.replace(/\D/g,'');
+  const turnos = allTurnos.filter(t => {
+    const tDigits = (t.tel || '').replace(/\D/g,'');
+    // Match si los últimos dígitos ingresados coinciden
+    return tDigits.endsWith(telDigits) || telDigits.endsWith(tDigits) || tDigits === telDigits;
+  });
   
   if (turnos.length === 0) {
     resultado.innerHTML = `
@@ -932,11 +995,17 @@ function buscarTurnos() {
     const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
     const fStr = DIAS[fObj.getDay()] + ' ' + fObj.getDate() + ' de ' + MESES[fObj.getMonth()];
     
+    const pagada = t.señaPagada || t['señaPagada'];
+    const wpMsg = encodeURIComponent('Hola! Te envío el comprobante de seña para mi turno de ' + t.tratN + ' el ' + fStr + ' a las ' + mStr(t.hora) + ' hs. Nombre: ' + t.nom + ' ' + t.ape);
     html += `
       <div class="consulta-turno">
         <strong>🌺 ${t.tratN}</strong><br>
         📅 ${fStr} a las ${mStr(t.hora)} hs<br>
-        💰 Total: ${fPeso(t.precio)}
+        💰 Total: ${fPeso(t.precio)}<br>
+        <span style="display:inline-block;margin-top:0.5rem;padding:0.25rem 0.8rem;border-radius:20px;font-size:0.8rem;font-weight:700;background:${pagada ? '#D4EDDA' : '#FFF3CD'};color:${pagada ? '#155724' : '#856404'};">
+          ${pagada ? '✅ Seña confirmada' : '⚠️ Seña pendiente'}
+        </span>
+        ${!pagada ? `<br><a href="https://wa.me/5491159029792?text=${wpMsg}" target="_blank" style="display:inline-flex;align-items:center;gap:0.4rem;margin-top:0.6rem;padding:0.5rem 1rem;background:#25D366;color:#FFF;border-radius:20px;text-decoration:none;font-size:0.85rem;font-weight:600;">📎 Enviar comprobante por WA</a>` : ''}
       </div>
     `;
   });
@@ -1190,7 +1259,7 @@ function renderSeña() {
 function irFin() {
   const t = TRATS[est.trat];
   const precio = getPrecio();
-  
+
   const turno = {
     id: Date.now().toString(),
     nom: est.cliente.nom,
@@ -1208,40 +1277,44 @@ function irFin() {
     origen: 'web',
     at: new Date().toISOString()
   };
-  
-  // Guardar en Supabase (fuente de verdad) + cache local
+
+  // Guardar en Supabase + cache local
   const sbData = {
-    id: turno.id,
-    nom: turno.nom,
-    ape: turno.ape,
-    tel: turno.tel,
-    trat: turno.trat,
-    "tratN": turno.tratN,
-    fecha: turno.fecha,
-    hora: turno.hora,
-    precio: turno.precio,
-    "seña": turno.seña,
-    "señaPagada": false,
-    zonas: turno.zonas,
-    notas: turno.notas,
-    origen: turno.origen,
-    at: turno.at
+    id: turno.id, nom: turno.nom, ape: turno.ape, tel: turno.tel,
+    trat: turno.trat, "tratN": turno.tratN, fecha: turno.fecha,
+    hora: turno.hora, precio: turno.precio, "seña": turno.seña,
+    "señaPagada": false, zonas: turno.zonas, notas: turno.notas,
+    origen: turno.origen, at: turno.at
   };
-  sbInsert('turnos', sbData).catch(()=>{});
+  sbInsert('turnos', sbData).catch(function(){});
   const turnos = getTurnos();
   turnos.push(turno);
   setTurnos(turnos);
-  
+
   const fObj = new Date(est.fecha + 'T12:00');
-  const DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  const DIAS2 = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
   const MESES2 = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-  const fStr = DIAS[fObj.getDay()] + ' ' + fObj.getDate() + ' de ' + MESES2[fObj.getMonth()];
-  
-  document.getElementById('txt-fin').innerHTML = 
-    'Tu turno de <b>' + t.n + '</b> está reservado para el <b>' + fStr + '</b> a las <b>' + mStr(est.hora) + ' hs</b>. ¡Nos vemos pronto!';
-  
+  const fStr = DIAS2[fObj.getDay()] + ' ' + fObj.getDate() + ' de ' + MESES2[fObj.getMonth()];
+
+  document.getElementById('txt-fin').innerHTML =
+    'Tu turno de <b>' + t.n + '</b> está reservado para el <b>' + fStr + '</b> a las <b>' + mStr(est.hora) + ' hs</b>.';
+
+  // Actualizar alias y armar link WP con datos del turno
+  const aliasActual = getCfg().alias;
+  const el = document.getElementById('alias-fin');
+  if (el) el.textContent = aliasActual;
+  const wpTxt = encodeURIComponent(
+    'Hola! Te envío el comprobante de seña 💸' + '\n' +
+    'Turno: ' + t.n + '\n' +
+    'Fecha: ' + fStr + ' a las ' + mStr(est.hora) + ' hs' + '\n' +
+    'Nombre: ' + est.cliente.nom + ' ' + est.cliente.ape + '\n' +
+    'Alias transferido: ' + aliasActual
+  );
+  const btnWp = document.getElementById('btn-wp-comprobante');
+  if (btnWp) btnWp.href = 'https://wa.me/5491159029792?text=' + wpTxt;
+
   showPage('p-fin');
-  
+
   est = { cliente:{}, trat:'', zonas:[], fecha:null, hora:null, mesAct:new Date() };
   document.getElementById('inp-nombre').value = '';
   document.getElementById('inp-apellido').value = '';
