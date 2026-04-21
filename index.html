@@ -682,13 +682,107 @@ const HDIAS = {
 let est = { cliente:{}, trat:'', zonas:[], fecha:null, hora:null, mesAct:new Date() };
 let agendaFechaActual = new Date();
 
+// Inicializar: cargar desde Supabase al arrancar (con fallback a localStorage)
+(async function inicializar() {
+  // Mostrar indicador de carga
+  const overlay = document.createElement('div');
+  overlay.id = 'sb-loading';
+  overlay.style.cssText = 'position:fixed;inset:0;background:#FAF8F5;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;';
+  overlay.innerHTML = '<div style="font-size:2rem">🌺</div><div style="font-family:Lato,sans-serif;color:#8B1A1A;font-size:1rem;">Cargando turnos...</div>';
+  document.body.appendChild(overlay);
 
-const getTurnos = () => { try{return JSON.parse(localStorage.getItem('amp_t')||'[]');}catch{return[];} };
-const setTurnos = t => localStorage.setItem('amp_t', JSON.stringify(t));
+  // Intentar Supabase
+  try {
+    await sincronizarDesdeSupabase();
+  } catch {
+    // Fallback: usar localStorage
+    try { _turnosCache = JSON.parse(localStorage.getItem('amp_t')||'[]'); } catch { _turnosCache = []; }
+    try { _bloqueosCache = JSON.parse(localStorage.getItem('amp_blq')||'[]'); } catch { _bloqueosCache = []; }
+  }
+
+  // Remover overlay
+  overlay.remove();
+
+  // Abrir admin si URL tiene #admin
+  if (location.hash === '#admin') showPage('p-admin-login');
+})();
+
+
+// ════════════════════════════════════════════════
+// SUPABASE CONFIG
+// ════════════════════════════════════════════════
+const SB_URL  = 'https://brtuieevrokgxreypyox.supabase.co';
+const SB_KEY  = 'sb_publishable_5L62P656hK1PoEzN-_AEbA_0eBAfn8b';
+const SB_HDR  = { 'Content-Type':'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY };
+
+async function sbGet(tabla, params='') {
+  try {
+    const r = await fetch(SB_URL + '/rest/v1/' + tabla + '?select=*' + (params ? '&'+params : ''), { headers: SB_HDR });
+    if (!r.ok) return null;
+    return await r.json();
+  } catch { return null; }
+}
+
+async function sbInsert(tabla, obj) {
+  try {
+    const r = await fetch(SB_URL + '/rest/v1/' + tabla, {
+      method:'POST', headers:{...SB_HDR,'Prefer':'return=minimal'}, body: JSON.stringify(obj)
+    });
+    return r.ok;
+  } catch { return false; }
+}
+
+async function sbUpdate(tabla, id, obj) {
+  try {
+    const r = await fetch(SB_URL + '/rest/v1/' + tabla + '?id=eq.' + id, {
+      method:'PATCH', headers:{...SB_HDR,'Prefer':'return=minimal'}, body: JSON.stringify(obj)
+    });
+    return r.ok;
+  } catch { return false; }
+}
+
+async function sbDelete(tabla, filtro) {
+  try {
+    const r = await fetch(SB_URL + '/rest/v1/' + tabla + '?' + filtro, {
+      method:'DELETE', headers: SB_HDR
+    });
+    return r.ok;
+  } catch { return false; }
+}
+
+// ── Cache local (para que esDisp() funcione sincrónicamente) ──
+let _turnosCache = [];
+let _bloqueosCache = [];
+
+async function sincronizarDesdeSupabase() {
+  const [t, b] = await Promise.all([
+    sbGet('turnos', 'order=fecha.asc'),
+    sbGet('bloqueos', 'order=fecha.asc')
+  ]);
+  if (t) { _turnosCache = t; localStorage.setItem('amp_t', JSON.stringify(t)); }
+  if (b) { _bloqueosCache = b; localStorage.setItem('amp_blq', JSON.stringify(b)); }
+}
+
+// Sincronizar cada 15 segundos para ver reservas de otros en tiempo real
+setInterval(async () => {
+  await sincronizarDesdeSupabase();
+  if (typeof tabActual !== 'undefined') {
+    if (tabActual === 'agenda') renderAgenda();
+    else if (tabActual === 'turnos') renderListaTurnos();
+  }
+}, 15000);
+
+// ── Funciones síncronas (usan cache) ──
+const getTurnos  = () => _turnosCache;
+const getBloqueos = () => _bloqueosCache;
+
+// setTurnos/setBloqueos → solo actualizan cache local, Supabase se maneja por separado
+const setTurnos  = t => { _turnosCache = t; localStorage.setItem('amp_t', JSON.stringify(t)); };
+const setBloqueos = b => { _bloqueosCache = b; localStorage.setItem('amp_blq', JSON.stringify(b)); };
+
+// Papelera sigue siendo local (datos historicos, no críticos)
 const getPapelera = () => { try{return JSON.parse(localStorage.getItem('amp_p')||'[]');}catch{return[];} };
 const setPapelera = p => localStorage.setItem('amp_p', JSON.stringify(p));
-const getBloqueos = () => { try{return JSON.parse(localStorage.getItem('amp_blq')||'[]');}catch{return[];} };
-const setBloqueos = b => localStorage.setItem('amp_blq', JSON.stringify(b));
 const getCfg = () => { const d={alias:'AMAPOLA.STUDIO',pass:'amapola2025'}; try{return{...d,...JSON.parse(localStorage.getItem('amp_c')||'{}')};}catch{return d;} };
 const setCfg = c => localStorage.setItem('amp_c', JSON.stringify(c));
 const getPrecios = () => { try{return JSON.parse(localStorage.getItem('amp_precios')||'{}');}catch{return{};} };
@@ -1064,6 +1158,25 @@ function irFin() {
     at: new Date().toISOString()
   };
   
+  // Guardar en Supabase (fuente de verdad) + cache local
+  const sbData = {
+    id: turno.id,
+    nom: turno.nom,
+    ape: turno.ape,
+    tel: turno.tel,
+    trat: turno.trat,
+    "tratN": turno.tratN,
+    fecha: turno.fecha,
+    hora: turno.hora,
+    precio: turno.precio,
+    "seña": turno.seña,
+    "señaPagada": false,
+    zonas: turno.zonas,
+    notas: turno.notas,
+    origen: turno.origen,
+    at: turno.at
+  };
+  sbInsert('turnos', sbData).catch(()=>{});
   const turnos = getTurnos();
   turnos.push(turno);
   setTurnos(turnos);
@@ -1257,7 +1370,12 @@ function renderAgenda() {
 function toggleSeñaPagadaAgenda(id) {
   const turnos = getTurnos();
   const t = turnos.find(x => x.id === id);
-  if (t) { t.señaPagada = !t.señaPagada; setTurnos(turnos); renderAgenda(); }
+  if (t) {
+    t.señaPagada = !t.señaPagada;
+    setTurnos(turnos);
+    sbUpdate('turnos', id, { "señaPagada": t.señaPagada }).catch(()=>{});
+    renderAgenda();
+  }
 }
 
 function agendaHoy() {
@@ -1288,8 +1406,13 @@ function bloquearAgenda() {
   const motivo = document.getElementById('blq-motivo').value.trim() || 'Bloqueado';
   if (!fecha || !tipo) { alert('Elegí fecha y tipo de bloqueo'); return; }
   const bloqueos = getBloqueos().filter(b => !(b.fecha === fecha && b.tipo === tipo));
-  bloqueos.push({ fecha, tipo, motivo, at: new Date().toISOString() });
+  const nuevoBlq = { fecha, tipo, motivo, at: new Date().toISOString() };
+  bloqueos.push(nuevoBlq);
   setBloqueos(bloqueos);
+  // Borrar primero por si ya existe (upsert manual)
+  sbDelete('bloqueos', 'fecha=eq.' + fecha + '&tipo=eq.' + tipo)
+    .then(() => sbInsert('bloqueos', { fecha, tipo, motivo, at: nuevoBlq.at }))
+    .catch(()=>{});
   document.getElementById('blq-fecha').value = '';
   document.getElementById('blq-tipo').value = '';
   document.getElementById('blq-motivo').value = '';
@@ -1317,6 +1440,7 @@ function verBloqueos() {
 
 function desbloquear(fecha, tipo) {
   setBloqueos(getBloqueos().filter(b => !(b.fecha === fecha && b.tipo === tipo)));
+  sbDelete('bloqueos', 'fecha=eq.' + fecha + '&tipo=eq.' + tipo).catch(()=>{});
   verBloqueos();
   renderAgenda();
 }
@@ -1550,7 +1674,9 @@ function toggleSeñaPagada(id) {
   if (turno) {
     turno.señaPagada = !turno.señaPagada;
     setTurnos(turnos);
+    sbUpdate('turnos', id, { "señaPagada": turno.señaPagada }).catch(()=>{});
     if (tabActual === 'agenda') renderAgenda();
+    else renderListaTurnos();
   }
 }
 
@@ -1568,6 +1694,7 @@ function eliminarTurno(id) {
   }
   
   setTurnos(turnos.filter(t => t.id !== id));
+  sbDelete('turnos', 'id=eq.' + id).catch(()=>{});
   renderListaTurnos();
   if (tabActual === 'agenda') renderAgenda();
 }
@@ -1607,7 +1734,8 @@ function restaurarTurno(id) {
     delete turno.eliminadoEn;
     turnos.push(turno);
     setTurnos(turnos);
-    
+    const sbD = { id:turno.id, nom:turno.nom, ape:turno.ape, tel:turno.tel, trat:turno.trat, "tratN":turno.tratN, fecha:turno.fecha, hora:turno.hora, precio:turno.precio, "seña":turno.seña||10000, "señaPagada":turno.señaPagada||false, zonas:turno.zonas||[], notas:turno.notas||'', origen:turno.origen||'web', at:turno.at };
+    sbInsert('turnos', sbD).catch(()=>{});
     setPapelera(papelera.filter(t => t.id !== id));
     renderPapelera();
     alert('Turno restaurado');
@@ -1651,6 +1779,24 @@ function guardarManual() {
     at: new Date().toISOString()
   };
   
+  const sbData = {
+    id: turno.id,
+    nom: turno.nom,
+    ape: turno.ape,
+    tel: turno.tel,
+    trat: turno.trat,
+    "tratN": turno.tratN,
+    fecha: turno.fecha,
+    hora: turno.hora,
+    precio: turno.precio,
+    "seña": turno.seña,
+    "señaPagada": false,
+    zonas: turno.zonas,
+    notas: turno.notas,
+    origen: turno.origen,
+    at: turno.at
+  };
+  sbInsert('turnos', sbData).catch(()=>{});
   const turnos = getTurnos();
   turnos.push(turno);
   setTurnos(turnos);
