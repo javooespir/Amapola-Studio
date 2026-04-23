@@ -948,9 +948,10 @@ function generarMensajeRecordatorio(tratN, tratK, fecha, hora, zonas=[]) {
 
 
 function abrirWAAdmin(tel, msg) {
-  const cfg = getCfg();
-  const numero = cfg.waBusiness || '5491159029792';
-  const url = 'https://wa.me/' + numero + '?text=' + msg;
+  // tel = número del CLIENTE (destino del mensaje)
+  // waBusiness = número de Amapola (desde donde ella envía — lo elige el SO)
+  const telLimpio = tel.replace(/\D/g, '');
+  const url = 'https://wa.me/' + telLimpio + '?text=' + msg;
   window.open(url, '_blank');
 }
 
