@@ -949,8 +949,12 @@ function generarMensajeRecordatorio(tratN, tratK, fecha, hora, zonas=[]) {
 
 function abrirWAAdmin(tel, msg) {
   // tel = número del CLIENTE (destino del mensaje)
-  // waBusiness = número de Amapola (desde donde ella envía — lo elige el SO)
-  const telLimpio = tel.replace(/\D/g, '');
+  let telLimpio = tel.replace(/\D/g, '');
+  // Fix Argentina: +54 + número celular necesita el 9 entre código y número
+  // Ej: 541131462214 → 5491131462214
+  if (telLimpio.startsWith('54') && telLimpio.length === 12 && telLimpio[2] !== '9') {
+    telLimpio = '549' + telLimpio.slice(2);
+  }
   const url = 'https://wa.me/' + telLimpio + '?text=' + msg;
   window.open(url, '_blank');
 }
@@ -1572,7 +1576,8 @@ function renderAgenda() {
     const topPx = slotIdx * SLOT_H;
     const heightPx = durSlots * SLOT_H - 4;
     const paid = t.señaPagada;
-    const wpNum = t.tel.replace(/\D/g,'');
+    let wpNum = t.tel.replace(/\D/g,'');
+    if (wpNum.startsWith('54') && wpNum.length === 12 && wpNum[2] !== '9') wpNum = '549' + wpNum.slice(2);
     const wpMsgAgenda = generarMensajeRecordatorio(t.tratN, t.trat, fStr, mStr(t.hora), t.zonas || []);
     const wpMsg = encodeURIComponent(wpMsgAgenda);
 
@@ -1889,7 +1894,8 @@ function renderListaTurnos() {
       const DIAS = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
       const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
       const fStr = DIAS[fObj.getDay()] + ' ' + fObj.getDate() + ' de ' + MESES[fObj.getMonth()];
-      const wpNum = t.tel.replace(/\D/g,'');
+      let wpNum = t.tel.replace(/\D/g,'');
+    if (wpNum.startsWith('54') && wpNum.length === 12 && wpNum[2] !== '9') wpNum = '549' + wpNum.slice(2);
       const wpMsgTxt = generarMensajeRecordatorio(t.tratN, t.trat, fStr, mStr(t.hora), t.zonas || []);
       const wpMsg = encodeURIComponent(wpMsgTxt);
 
