@@ -688,194 +688,147 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- Carousel de reseñas -->
+      <div class="fade-up overflow-hidden rounded-xl" id="rev-wrapper">
+        <div id="rev-track" style="display:flex;transition:transform 0.42s cubic-bezier(0.25,0.46,0.45,0.94);">
 
-        <!-- Fila 1 -->
-        <div class="fade-up bg-white rounded-xl p-5 border border-amapola-100 hover:shadow-md transition-shadow duration-300">
-          <div class="flex items-center gap-0.5 mb-3">
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          </div>
-          <p class="text-amapola-900/70 text-sm font-light leading-relaxed mb-4">"100% recomiendo, no solo por los buenos precios sino también por la atención. Cata un amor y super prolija. La única a la que le confío mi piel."</p>
-          <div class="flex items-center gap-3 pt-3 border-t border-amapola-100">
-            <div class="w-8 h-8 rounded-full bg-amapola-100 flex items-center justify-center flex-shrink-0">
-              <span class="text-amapola-500 text-xs font-semibold">SM</span>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-amapola-900">Sofia Maria</p>
-              <p class="text-[10px] font-light text-amapola-900/40">Google Maps · Abril 2025</p>
+          <div class="rev-card" style="min-width:100%;padding:0 0.25rem;">
+            <div class="bg-white rounded-xl p-6 border border-amapola-100 max-w-2xl mx-auto">
+              <div class="flex items-center gap-0.5 mb-3">
+                <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+              <p class="text-amapola-900/70 text-sm font-light leading-relaxed mb-5">"100% recomiendo, no solo por los buenos precios sino también por la atención. Cata un amor y super prolija. La única a la que le confío mi piel."</p>
+              <div class="flex items-center gap-3 pt-3 border-t border-amapola-100">
+                <div class="w-8 h-8 rounded-full bg-amapola-100 flex items-center justify-center flex-shrink-0"><span class="text-amapola-500 text-xs font-semibold">SM</span></div>
+                <div><p class="text-sm font-medium text-amapola-900">Sofia Maria</p><p class="text-[10px] font-light text-amapola-900/40">Google Maps · Abril 2025</p></div>
+              </div>
             </div>
           </div>
+
+          <div class="rev-card" style="min-width:100%;padding:0 0.25rem;">
+            <div class="bg-white rounded-xl p-6 border border-amapola-100 max-w-2xl mx-auto">
+              <div class="flex items-center gap-0.5 mb-3">
+                <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+              <p class="text-amapola-900/70 text-sm font-light leading-relaxed mb-5">"Todo 100000/10. El studio hermoso, céntrico y cómodo. Cata amable, profesional y super cálida. Probé cada servicio y excelentes todos. Mi preferido es el drenaje linfático."</p>
+              <div class="flex items-center gap-3 pt-3 border-t border-amapola-100">
+                <div class="w-8 h-8 rounded-full bg-amapola-100 flex items-center justify-center flex-shrink-0"><span class="text-amapola-500 text-xs font-semibold">NB</span></div>
+                <div><p class="text-sm font-medium text-amapola-900">Nair Bulyszyn</p><p class="text-[10px] font-light text-amapola-900/40">Google Maps · Abril 2025</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rev-card" style="min-width:100%;padding:0 0.25rem;">
+            <div class="bg-white rounded-xl p-6 border border-amapola-100 max-w-2xl mx-auto">
+              <div class="flex items-center gap-0.5 mb-3">
+                <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+              <p class="text-amapola-900/70 text-sm font-light leading-relaxed mb-5">"Excelente servicio. Profesionalismo, limpieza, puntualidad y trato al cliente. Recomendable 100%."</p>
+              <div class="flex items-center gap-3 pt-3 border-t border-amapola-100">
+                <div class="w-8 h-8 rounded-full bg-amapola-100 flex items-center justify-center flex-shrink-0"><span class="text-amapola-500 text-xs font-semibold">AS</span></div>
+                <div><p class="text-sm font-medium text-amapola-900">Aldana Soraiz</p><p class="text-[10px] font-light text-amapola-900/40">Google Maps · Abril 2025</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rev-card" style="min-width:100%;padding:0 0.25rem;">
+            <div class="bg-white rounded-xl p-6 border border-amapola-100 max-w-2xl mx-auto">
+              <div class="flex items-center gap-0.5 mb-3">
+                <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+              <p class="text-amapola-900/70 text-sm font-light leading-relaxed mb-5">"Excelente calidad humana y profesional. Super recomendados todos los servicios."</p>
+              <div class="flex items-center gap-3 pt-3 border-t border-amapola-100">
+                <div class="w-8 h-8 rounded-full bg-amapola-100 flex items-center justify-center flex-shrink-0"><span class="text-amapola-500 text-xs font-semibold">CB</span></div>
+                <div><p class="text-sm font-medium text-amapola-900">Camila Bottarelli</p><p class="text-[10px] font-light text-amapola-900/40">Google Maps · Abril 2025</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rev-card" style="min-width:100%;padding:0 0.25rem;">
+            <div class="bg-white rounded-xl p-6 border border-amapola-100 max-w-2xl mx-auto">
+              <div class="flex items-center gap-0.5 mb-3">
+                <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+              <p class="text-amapola-900/70 text-sm font-light leading-relaxed mb-5">"Voy siempre a hacerme laminado de cejas, lifting y drenaje linfático. Todo increíble! Catalina es muy cálida y sus manos son mágicas. 10/10."</p>
+              <div class="flex items-center gap-3 pt-3 border-t border-amapola-100">
+                <div class="w-8 h-8 rounded-full bg-amapola-100 flex items-center justify-center flex-shrink-0"><span class="text-amapola-500 text-xs font-semibold">AG</span></div>
+                <div><p class="text-sm font-medium text-amapola-900">Agustina Sagardoy</p><p class="text-[10px] font-light text-amapola-900/40">Google Maps · Abril 2025</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rev-card" style="min-width:100%;padding:0 0.25rem;">
+            <div class="bg-white rounded-xl p-6 border border-amapola-100 max-w-2xl mx-auto">
+              <div class="flex items-center gap-0.5 mb-3">
+                <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+              <p class="text-amapola-900/70 text-sm font-light leading-relaxed mb-5">"Cata es súper prolija, cálida, puntual y detallista! Todos los servicios que me hice fueron impecables."</p>
+              <div class="flex items-center gap-3 pt-3 border-t border-amapola-100">
+                <div class="w-8 h-8 rounded-full bg-amapola-100 flex items-center justify-center flex-shrink-0"><span class="text-amapola-500 text-xs font-semibold">LS</span></div>
+                <div><p class="text-sm font-medium text-amapola-900">Lucila Soraiz</p><p class="text-[10px] font-light text-amapola-900/40">Google Maps · Abril 2025</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rev-card" style="min-width:100%;padding:0 0.25rem;">
+            <div class="bg-white rounded-xl p-6 border border-amapola-100 max-w-2xl mx-auto">
+              <div class="flex items-center gap-0.5 mb-3">
+                <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+              <p class="text-amapola-900/70 text-sm font-light leading-relaxed mb-5">"Probé la limpieza facial y fue un éxito. Muy amable y respetuosa, las chicas del showroom también son lo más."</p>
+              <div class="flex items-center gap-3 pt-3 border-t border-amapola-100">
+                <div class="w-8 h-8 rounded-full bg-amapola-100 flex items-center justify-center flex-shrink-0"><span class="text-amapola-500 text-xs font-semibold">JJ</span></div>
+                <div><p class="text-sm font-medium text-amapola-900">Julieta de Jesús</p><p class="text-[10px] font-light text-amapola-900/40">Google Maps · Abril 2025</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rev-card" style="min-width:100%;padding:0 0.25rem;">
+            <div class="bg-white rounded-xl p-6 border border-amapola-100 max-w-2xl mx-auto">
+              <div class="flex items-center gap-0.5 mb-3">
+                <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+              <p class="text-amapola-900/70 text-sm font-light leading-relaxed mb-5">"Me atiendo hace años con Cata y es lo más. Súper amorosa y profesional."</p>
+              <div class="flex items-center gap-3 pt-3 border-t border-amapola-100">
+                <div class="w-8 h-8 rounded-full bg-amapola-100 flex items-center justify-center flex-shrink-0"><span class="text-amapola-500 text-xs font-semibold">ML</span></div>
+                <div><p class="text-sm font-medium text-amapola-900">María Lazzarino</p><p class="text-[10px] font-light text-amapola-900/40">Google Maps · Abril 2025</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rev-card" style="min-width:100%;padding:0 0.25rem;">
+            <div class="bg-white rounded-xl p-6 border border-amapola-100 max-w-2xl mx-auto">
+              <div class="flex items-center gap-0.5 mb-3">
+                <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+              <p class="text-amapola-900/70 text-sm font-light leading-relaxed mb-5">"Excelente lugar, súper limpio y cumple con los horarios de los turnos. Cata es súper amable y siempre me deja la piel hermosa!"</p>
+              <div class="flex items-center gap-3 pt-3 border-t border-amapola-100">
+                <div class="w-8 h-8 rounded-full bg-amapola-100 flex items-center justify-center flex-shrink-0"><span class="text-amapola-500 text-xs font-semibold">OS</span></div>
+                <div><p class="text-sm font-medium text-amapola-900">Ornella Spataro</p><p class="text-[10px] font-light text-amapola-900/40">Google Maps · Abril 2025</p></div>
+              </div>
+            </div>
+          </div>
+
         </div>
+      </div>
 
-        <div class="fade-up bg-white rounded-xl p-5 border border-amapola-100 hover:shadow-md transition-shadow duration-300">
-          <div class="flex items-center gap-0.5 mb-3">
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          </div>
-          <p class="text-amapola-900/70 text-sm font-light leading-relaxed mb-4">"Todo 100000/10. El studio hermoso, céntrico y cómodo. Cata amable, profesional y super cálida. Probé cada servicio y excelentes todos. Mi preferido es el drenaje linfático."</p>
-          <div class="flex items-center gap-3 pt-3 border-t border-amapola-100">
-            <div class="w-8 h-8 rounded-full bg-amapola-100 flex items-center justify-center flex-shrink-0">
-              <span class="text-amapola-500 text-xs font-semibold">NB</span>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-amapola-900">Nair Bulyszyn</p>
-              <p class="text-[10px] font-light text-amapola-900/40">Google Maps · Abril 2025</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="fade-up bg-white rounded-xl p-5 border border-amapola-100 hover:shadow-md transition-shadow duration-300">
-          <div class="flex items-center gap-0.5 mb-3">
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          </div>
-          <p class="text-amapola-900/70 text-sm font-light leading-relaxed mb-4">"Excelente servicio. Profesionalismo, limpieza, puntualidad y trato al cliente. Recomendable 100%."</p>
-          <div class="flex items-center gap-3 pt-3 border-t border-amapola-100">
-            <div class="w-8 h-8 rounded-full bg-amapola-100 flex items-center justify-center flex-shrink-0">
-              <span class="text-amapola-500 text-xs font-semibold">AS</span>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-amapola-900">Aldana Soraiz</p>
-              <p class="text-[10px] font-light text-amapola-900/40">Google Maps · Abril 2025</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Fila 2 — nuevas reseñas -->
-        <div class="fade-up bg-white rounded-xl p-5 border border-amapola-100 hover:shadow-md transition-shadow duration-300">
-          <div class="flex items-center gap-0.5 mb-3">
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          </div>
-          <p class="text-amapola-900/70 text-sm font-light leading-relaxed mb-4">"Excelente calidad humana y profesional. Super recomendados todos los servicios."</p>
-          <div class="flex items-center gap-3 pt-3 border-t border-amapola-100">
-            <div class="w-8 h-8 rounded-full bg-amapola-100 flex items-center justify-center flex-shrink-0">
-              <span class="text-amapola-500 text-xs font-semibold">CB</span>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-amapola-900">Camila Bottarelli</p>
-              <p class="text-[10px] font-light text-amapola-900/40">Google Maps · Abril 2025</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="fade-up bg-white rounded-xl p-5 border border-amapola-100 hover:shadow-md transition-shadow duration-300">
-          <div class="flex items-center gap-0.5 mb-3">
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          </div>
-          <p class="text-amapola-900/70 text-sm font-light leading-relaxed mb-4">"Voy siempre a hacerme laminado de cejas, lifting y drenaje linfático. Todo increíble! Catalina es muy cálida y sus manos son mágicas. 10/10."</p>
-          <div class="flex items-center gap-3 pt-3 border-t border-amapola-100">
-            <div class="w-8 h-8 rounded-full bg-amapola-100 flex items-center justify-center flex-shrink-0">
-              <span class="text-amapola-500 text-xs font-semibold">AG</span>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-amapola-900">Agustina Sagardoy</p>
-              <p class="text-[10px] font-light text-amapola-900/40">Google Maps · Abril 2025</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="fade-up bg-white rounded-xl p-5 border border-amapola-100 hover:shadow-md transition-shadow duration-300">
-          <div class="flex items-center gap-0.5 mb-3">
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          </div>
-          <p class="text-amapola-900/70 text-sm font-light leading-relaxed mb-4">"Cata es súper prolija, cálida, puntual y detallista! Todos los servicios que me hice fueron impecables."</p>
-          <div class="flex items-center gap-3 pt-3 border-t border-amapola-100">
-            <div class="w-8 h-8 rounded-full bg-amapola-100 flex items-center justify-center flex-shrink-0">
-              <span class="text-amapola-500 text-xs font-semibold">LS</span>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-amapola-900">Lucila Soraiz</p>
-              <p class="text-[10px] font-light text-amapola-900/40">Google Maps · Abril 2025</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="fade-up bg-white rounded-xl p-5 border border-amapola-100 hover:shadow-md transition-shadow duration-300">
-          <div class="flex items-center gap-0.5 mb-3">
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          </div>
-          <p class="text-amapola-900/70 text-sm font-light leading-relaxed mb-4">"Probé la limpieza facial y fue un éxito. Muy amable y respetuosa, las chicas del showroom también son lo más."</p>
-          <div class="flex items-center gap-3 pt-3 border-t border-amapola-100">
-            <div class="w-8 h-8 rounded-full bg-amapola-100 flex items-center justify-center flex-shrink-0">
-              <span class="text-amapola-500 text-xs font-semibold">JJ</span>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-amapola-900">Julieta de Jesús</p>
-              <p class="text-[10px] font-light text-amapola-900/40">Google Maps · Abril 2025</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="fade-up bg-white rounded-xl p-5 border border-amapola-100 hover:shadow-md transition-shadow duration-300">
-          <div class="flex items-center gap-0.5 mb-3">
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          </div>
-          <p class="text-amapola-900/70 text-sm font-light leading-relaxed mb-4">"Me atiendo hace años con Cata y es lo más. Súper amorosa y profesional."</p>
-          <div class="flex items-center gap-3 pt-3 border-t border-amapola-100">
-            <div class="w-8 h-8 rounded-full bg-amapola-100 flex items-center justify-center flex-shrink-0">
-              <span class="text-amapola-500 text-xs font-semibold">ML</span>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-amapola-900">María Lazzarino</p>
-              <p class="text-[10px] font-light text-amapola-900/40">Google Maps · Abril 2025</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="fade-up bg-white rounded-xl p-5 border border-amapola-100 hover:shadow-md transition-shadow duration-300">
-          <div class="flex items-center gap-0.5 mb-3">
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="w-3.5 h-3.5 text-amapola-500 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          </div>
-          <p class="text-amapola-900/70 text-sm font-light leading-relaxed mb-4">"Excelente lugar, súper limpio y cumple con los horarios de los turnos. Cata es súper amable y siempre me deja la piel hermosa!"</p>
-          <div class="flex items-center gap-3 pt-3 border-t border-amapola-100">
-            <div class="w-8 h-8 rounded-full bg-amapola-100 flex items-center justify-center flex-shrink-0">
-              <span class="text-amapola-500 text-xs font-semibold">OS</span>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-amapola-900">Ornella Spataro</p>
-              <p class="text-[10px] font-light text-amapola-900/40">Google Maps · Abril 2025</p>
-            </div>
-          </div>
-        </div>
-
+      <!-- Controles del carousel -->
+      <div class="fade-up flex items-center justify-center gap-4 mt-5">
+        <button id="rev-prev"
+          class="w-8 h-8 rounded-full border border-amapola-200 flex items-center justify-center text-amapola-400 hover:border-amapola-500 hover:text-amapola-500 transition-all duration-300 flex-shrink-0"
+          aria-label="Reseña anterior">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div id="rev-dots" class="flex items-center gap-1.5"></div>
+        <button id="rev-next"
+          class="w-8 h-8 rounded-full border border-amapola-200 flex items-center justify-center text-amapola-400 hover:border-amapola-500 hover:text-amapola-500 transition-all duration-300 flex-shrink-0"
+          aria-label="Siguiente reseña">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </div>
 
       <!-- Ver todas en Google -->
-      <div class="fade-up mt-6 text-center">
+      <div class="fade-up mt-5 text-center">
         <a href="https://maps.app.goo.gl/o3ZRMbjAAbewCU3f6" target="_blank" rel="noopener"
            class="inline-flex items-center gap-2 text-amapola-500 text-xs font-calm font-medium tracking-widest uppercase hover:text-amapola-700 transition-colors duration-300">
           Ver las 14 reseñas en Google
@@ -1087,6 +1040,51 @@
       const i = Math.round(track.scrollLeft / w);
       if (i !== curIdx) { curIdx = i; updateDots(i); }
     }, { passive: true });
+
+    // ── Reviews carousel ────────────────────────────────────
+    const revTrack   = document.getElementById('rev-track');
+    const revDots    = document.getElementById('rev-dots');
+    const revWrapper = document.getElementById('rev-wrapper');
+    const revCards   = Array.from(revTrack.querySelectorAll('.rev-card'));
+    let revIdx = 0, revTimer;
+
+    revCards.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.setAttribute('aria-label', 'Reseña ' + (i + 1));
+      d.className = 'h-1.5 rounded-full transition-all duration-300 ' + (i === 0 ? 'w-4 bg-amapola-500' : 'w-1.5 bg-amapola-200');
+      d.addEventListener('click', () => { revStop(); revGoTo(i); revStart(); });
+      revDots.appendChild(d);
+    });
+
+    function revUpdateDots(idx) {
+      revDots.querySelectorAll('button').forEach((d, i) => {
+        d.className = 'h-1.5 rounded-full transition-all duration-300 ' + (i === idx ? 'w-4 bg-amapola-500' : 'w-1.5 bg-amapola-200');
+      });
+    }
+    function revGoTo(idx) {
+      if (idx < 0) idx = revCards.length - 1;
+      if (idx >= revCards.length) idx = 0;
+      revTrack.style.transform = 'translateX(-' + (idx * 100) + '%)';
+      revIdx = idx;
+      revUpdateDots(idx);
+    }
+    function revStart() { revTimer = setInterval(() => revGoTo(revIdx + 1), 5000); }
+    function revStop()  { clearInterval(revTimer); }
+
+    document.getElementById('rev-prev').addEventListener('click', () => { revStop(); revGoTo(revIdx - 1); revStart(); });
+    document.getElementById('rev-next').addEventListener('click', () => { revStop(); revGoTo(revIdx + 1); revStart(); });
+    revWrapper.addEventListener('mouseenter', revStop);
+    revWrapper.addEventListener('mouseleave', revStart);
+
+    // Swipe táctil
+    let revTX = 0;
+    revWrapper.addEventListener('touchstart', e => { revTX = e.touches[0].clientX; }, { passive: true });
+    revWrapper.addEventListener('touchend',   e => {
+      const dx = e.changedTouches[0].clientX - revTX;
+      if (Math.abs(dx) > 44) { revStop(); revGoTo(revIdx + (dx < 0 ? 1 : -1)); revStart(); }
+    }, { passive: true });
+
+    revStart();
 
     // ── Cargar precios ───────────────────────────────────────
     cargarPrecios();
