@@ -9,6 +9,7 @@
   <meta property="og:description" content="Estética facial y corporal. Tratamientos pensados para vos. Reservá online las 24hs.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://amapolastudio.online">
+  <meta property="og:image" content="https://z-cdn-media.chatglm.cn/files/c7ab1066-29cd-47a8-aee1-4ca7d5914bf2.png?auth_key=1877316330-4f9b2bee32d94cbcbc712476efbb1835-0-c88e1d84b5e0e998f71d9ffca242fece">
   <link rel="icon" type="image/png" href="https://z-cdn-media.chatglm.cn/files/c7ab1066-29cd-47a8-aee1-4ca7d5914bf2.png?auth_key=1877316330-4f9b2bee32d94cbcbc712476efbb1835-0-c88e1d84b5e0e998f71d9ffca242fece" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
@@ -66,9 +67,21 @@
     .hero-phrase        { animation: heroFade 1.6s cubic-bezier(0.22,1,0.36,1) 0.2s both; }
     .hero-phrase-delay  { animation: heroFade 1.6s cubic-bezier(0.22,1,0.36,1) 0.5s both; }
     .hero-phrase-delay2 { animation: heroFade 1.6s cubic-bezier(0.22,1,0.36,1) 0.8s both; }
+    @keyframes heroScrollHint {
+      0%,100% { opacity: 0.4; transform: translateY(0); }
+      50%      { opacity: 0.7; transform: translateY(5px); }
+    }
     @keyframes heroFade {
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up { opacity: 1; transform: none; transition: none; }
+      .hero-phrase, .hero-phrase-delay, .hero-phrase-delay2 { animation: none; opacity: 1; transform: none; }
+      .hero-logo-float { animation: none; }
+      .badge-pulse { animation: none; }
+      * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
     }
 
     .hero-logo-float { animation: logoFloat 10s ease-in-out infinite; }
@@ -194,7 +207,7 @@
           Reservar
         </a>
       </div>
-      <button id="menuBtn" class="md:hidden text-amapola-500/70">
+      <button id="menuBtn" class="md:hidden text-amapola-500/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amapola-500 rounded-sm" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
         <i data-lucide="menu" class="w-5 h-5"></i>
       </button>
     </div>
@@ -202,7 +215,7 @@
 
   <!-- Mobile Menu -->
   <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-72 h-full bg-amapola-50 z-[60] shadow-2xl flex flex-col p-8">
-    <button id="closeMenu" class="self-end mb-10 text-amapola-900">
+    <button id="closeMenu" class="self-end mb-10 text-amapola-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amapola-500 rounded-sm" aria-label="Cerrar menú">
       <i data-lucide="x" class="w-5 h-5"></i>
     </button>
     <a href="#servicios" class="mobile-link text-sm font-calm font-medium tracking-widest uppercase text-amapola-900 py-3 border-b border-amapola-100">Servicios</a>
@@ -242,8 +255,8 @@
         </a>
       </div>
     </div>
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-      <i data-lucide="chevron-down" class="w-5 h-5 text-amapola-200"></i>
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-50" style="animation:heroScrollHint 2.4s ease-in-out infinite;">
+      <i data-lucide="chevron-down" class="w-5 h-5 text-amapola-300"></i>
     </div>
     <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-amapola-50 to-transparent"></div>
   </section>
@@ -262,7 +275,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
         <!-- Lifting de Pestañas -->
-        <div class="service-card fade-up relative bg-white rounded-xl p-5 border border-amapola-100 hover:border-amapola-200 hover:shadow-lg transition-all duration-400 group">
+        <div class="service-card fade-up relative bg-white rounded-xl p-5 border border-amapola-100 hover:border-amapola-200 hover:shadow-lg transition-all duration-300 group">
           <div class="flex items-start justify-between mb-3">
             <span class="badge-pulse bg-amapola-500 text-white text-[9px] font-calm font-medium tracking-wider uppercase px-2.5 py-1 rounded-full">Más pedido</span>
             <span class="text-amapola-900/30 text-xs font-light">1 hora</span>
@@ -275,14 +288,14 @@
           </div>
           <div class="flex items-end justify-between mt-4">
             <p class="font-heading text-2xl font-bold text-amapola-500" data-precio="lp">$20.000</p>
-            <a href="https://turnos.amapolastudio.online" target="_blank" rel="noopener">
-              <i data-lucide="arrow-up-right" class="w-4 h-4 text-amapola-300 group-hover:text-amapola-500 transition-colors duration-300"></i>
+            <a href="https://turnos.amapolastudio.online" target="_blank" rel="noopener" aria-label="Reservar Lifting de Pestañas" class="text-[9px] font-calm font-medium tracking-widest uppercase text-amapola-400 group-hover:text-amapola-500 transition-colors duration-300 flex items-center gap-1">
+              Reservar <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
             </a>
           </div>
         </div>
 
         <!-- Perfilado de Cejas -->
-        <div class="service-card fade-up relative bg-white rounded-xl p-5 border border-amapola-100 hover:border-amapola-200 hover:shadow-lg transition-all duration-400 group">
+        <div class="service-card fade-up relative bg-white rounded-xl p-5 border border-amapola-100 hover:border-amapola-200 hover:shadow-lg transition-all duration-300 group">
           <div class="flex items-start justify-between mb-3">
             <span class="w-[72px]"></span>
             <span class="text-amapola-900/30 text-xs font-light">30 min</span>
@@ -291,14 +304,14 @@
           <p class="text-amapola-900/50 text-xs font-light leading-relaxed mb-4">Realizado con pinza, hojera y cepillo. Dejamos las cejas prolijas, afinando lo mínimo necesario y adaptando la forma al tipo de rostro y gustos de cada clienta.</p>
           <div class="flex items-end justify-between">
             <p class="font-heading text-2xl font-bold text-amapola-500" data-precio="pc">$13.000</p>
-            <a href="https://turnos.amapolastudio.online" target="_blank" rel="noopener">
-              <i data-lucide="arrow-up-right" class="w-4 h-4 text-amapola-300 group-hover:text-amapola-500 transition-colors duration-300"></i>
+            <a href="https://turnos.amapolastudio.online" target="_blank" rel="noopener" aria-label="Reservar Perfilado de Cejas" class="text-[9px] font-calm font-medium tracking-widest uppercase text-amapola-400 group-hover:text-amapola-500 transition-colors duration-300 flex items-center gap-1">
+              Reservar <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
             </a>
           </div>
         </div>
 
         <!-- Laminado de Cejas -->
-        <div class="service-card fade-up relative bg-white rounded-xl p-5 border border-amapola-100 hover:border-amapola-200 hover:shadow-lg transition-all duration-400 group">
+        <div class="service-card fade-up relative bg-white rounded-xl p-5 border border-amapola-100 hover:border-amapola-200 hover:shadow-lg transition-all duration-300 group">
           <div class="flex items-start justify-between mb-3">
             <span class="w-[72px]"></span>
             <span class="text-amapola-900/30 text-xs font-light">30-45 min</span>
@@ -311,14 +324,14 @@
           </div>
           <div class="flex items-end justify-between mt-4">
             <p class="font-heading text-2xl font-bold text-amapola-500" data-precio="lac">$20.000</p>
-            <a href="https://turnos.amapolastudio.online" target="_blank" rel="noopener">
-              <i data-lucide="arrow-up-right" class="w-4 h-4 text-amapola-300 group-hover:text-amapola-500 transition-colors duration-300"></i>
+            <a href="https://turnos.amapolastudio.online" target="_blank" rel="noopener" aria-label="Reservar Laminado de Cejas" class="text-[9px] font-calm font-medium tracking-widest uppercase text-amapola-400 group-hover:text-amapola-500 transition-colors duration-300 flex items-center gap-1">
+              Reservar <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
             </a>
           </div>
         </div>
 
         <!-- Limpieza Facial Profunda -->
-        <div class="service-card fade-up relative bg-white rounded-xl p-5 border border-amapola-100 hover:border-amapola-200 hover:shadow-lg transition-all duration-400 group">
+        <div class="service-card fade-up relative bg-white rounded-xl p-5 border border-amapola-100 hover:border-amapola-200 hover:shadow-lg transition-all duration-300 group">
           <div class="flex items-start justify-between mb-3">
             <span class="bg-amapola-100 text-amapola-500 text-[9px] font-calm font-medium tracking-wider uppercase px-2.5 py-1 rounded-full">Recomendado</span>
             <span class="text-amapola-900/30 text-xs font-light">1h 45 min</span>
@@ -327,14 +340,14 @@
           <p class="text-amapola-900/50 text-xs font-light leading-relaxed mb-4">Incluye anamnesis, higiene, punta de diamante, extracciones, máscara, cabin led, hidratación y protección. Todo acorde al biotipo cutáneo y necesidades de la piel.</p>
           <div class="flex items-end justify-between">
             <p class="font-heading text-2xl font-bold text-amapola-500" data-precio="lc">$35.000</p>
-            <a href="https://turnos.amapolastudio.online" target="_blank" rel="noopener">
-              <i data-lucide="arrow-up-right" class="w-4 h-4 text-amapola-300 group-hover:text-amapola-500 transition-colors duration-300"></i>
+            <a href="https://turnos.amapolastudio.online" target="_blank" rel="noopener" aria-label="Reservar Limpieza Facial Profunda" class="text-[9px] font-calm font-medium tracking-widest uppercase text-amapola-400 group-hover:text-amapola-500 transition-colors duration-300 flex items-center gap-1">
+              Reservar <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
             </a>
           </div>
         </div>
 
         <!-- Peeling -->
-        <div class="service-card fade-up relative bg-white rounded-xl p-5 border border-amapola-100 hover:border-amapola-200 hover:shadow-lg transition-all duration-400 group">
+        <div class="service-card fade-up relative bg-white rounded-xl p-5 border border-amapola-100 hover:border-amapola-200 hover:shadow-lg transition-all duration-300 group">
           <div class="flex items-start justify-between mb-3">
             <span class="w-[72px]"></span>
             <span class="text-amapola-900/30 text-xs font-light">1h 30 min</span>
@@ -343,14 +356,14 @@
           <p class="text-amapola-900/50 text-xs font-light leading-relaxed mb-4">Exfoliación química mediante ácidos para renovar la piel: luminosidad, corrección de manchas, hidratación y atenuar líneas de expresión. Textura uniforme y radiante desde la primera sesión.</p>
           <div class="flex items-end justify-between">
             <p class="font-heading text-2xl font-bold text-amapola-500" data-precio="peeling">$40.000</p>
-            <a href="https://turnos.amapolastudio.online" target="_blank" rel="noopener">
-              <i data-lucide="arrow-up-right" class="w-4 h-4 text-amapola-300 group-hover:text-amapola-500 transition-colors duration-300"></i>
+            <a href="https://turnos.amapolastudio.online" target="_blank" rel="noopener" aria-label="Reservar Peeling" class="text-[9px] font-calm font-medium tracking-widest uppercase text-amapola-400 group-hover:text-amapola-500 transition-colors duration-300 flex items-center gap-1">
+              Reservar <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
             </a>
           </div>
         </div>
 
         <!-- Drenaje Linfático -->
-        <div class="service-card fade-up relative bg-white rounded-xl p-5 border border-amapola-100 hover:border-amapola-200 hover:shadow-lg transition-all duration-400 group">
+        <div class="service-card fade-up relative bg-white rounded-xl p-5 border border-amapola-100 hover:border-amapola-200 hover:shadow-lg transition-all duration-300 group">
           <div class="flex items-start justify-between mb-3">
             <span class="w-[72px]"></span>
             <span class="text-amapola-900/30 text-xs font-light">1 hora</span>
@@ -359,8 +372,8 @@
           <p class="text-amapola-900/50 text-xs font-light leading-relaxed mb-4">Maniobras suaves y rítmicas que estimulan el sistema linfático, eliminan líquidos retenidos y toxinas. Sensación de ligereza, bienestar y desinflamación desde la primera sesión.</p>
           <div class="flex items-end justify-between">
             <p class="font-heading text-2xl font-bold text-amapola-500" data-precio="dl">$25.000</p>
-            <a href="https://turnos.amapolastudio.online" target="_blank" rel="noopener">
-              <i data-lucide="arrow-up-right" class="w-4 h-4 text-amapola-300 group-hover:text-amapola-500 transition-colors duration-300"></i>
+            <a href="https://turnos.amapolastudio.online" target="_blank" rel="noopener" aria-label="Reservar Drenaje Linfático Manual" class="text-[9px] font-calm font-medium tracking-widest uppercase text-amapola-400 group-hover:text-amapola-500 transition-colors duration-300 flex items-center gap-1">
+              Reservar <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
             </a>
           </div>
         </div>
@@ -378,15 +391,15 @@
           <p class="text-amapola-500 text-[10px] font-calm font-medium tracking-[0.3em] uppercase mb-2">Más por menos</p>
           <h2 class="font-heading text-2xl md:text-3xl font-bold tracking-tight text-amapola-900 uppercase">Combos</h2>
         </div>
-        <div class="hidden md:flex items-center gap-2">
+        <div class="flex items-center gap-2">
           <button id="combo-prev"
-            class="w-9 h-9 rounded-full border border-amapola-200 flex items-center justify-center text-amapola-400 hover:border-amapola-500 hover:text-amapola-500 transition-all duration-300"
-            aria-label="Anterior">
+            class="w-8 h-8 md:w-9 md:h-9 rounded-full border border-amapola-200 flex items-center justify-center text-amapola-400 hover:border-amapola-500 hover:text-amapola-500 transition-all duration-300"
+            aria-label="Combo anterior">
             <i data-lucide="chevron-left" class="w-4 h-4"></i>
           </button>
           <button id="combo-next"
-            class="w-9 h-9 rounded-full border border-amapola-200 flex items-center justify-center text-amapola-400 hover:border-amapola-500 hover:text-amapola-500 transition-all duration-300"
-            aria-label="Siguiente">
+            class="w-8 h-8 md:w-9 md:h-9 rounded-full border border-amapola-200 flex items-center justify-center text-amapola-400 hover:border-amapola-500 hover:text-amapola-500 transition-all duration-300"
+            aria-label="Combo siguiente">
             <i data-lucide="chevron-right" class="w-4 h-4"></i>
           </button>
         </div>
@@ -651,18 +664,20 @@
           </div>
         </div>
         <div class="flex flex-col justify-center">
-          <div class="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white/80 shadow-sm mb-4">
-            <p class="font-calm text-lg md:text-xl text-amapola-700 font-semibold leading-snug mb-1">Resaltá tu belleza natural</p>
-            <p class="text-amapola-900/50 text-xs font-light">— Amapola Studio</p>
+          <div class="bg-white rounded-xl p-6 border border-amapola-100 shadow-sm mb-4">
+            <p class="font-calm text-lg md:text-xl text-amapola-700 font-semibold leading-snug mb-1">"Resaltá tu belleza natural"</p>
+            <p class="text-amapola-900/50 text-xs font-light">— Amapola Studio, Caballito, Buenos Aires</p>
           </div>
           <div class="grid grid-cols-2 gap-4">
-            <div class="bg-white/60 backdrop-blur-sm rounded-xl p-5 border border-white/80 shadow-sm text-center">
-              <p class="font-heading text-3xl font-bold text-amapola-500">6+</p>
-              <p class="text-[10px] font-calm font-medium tracking-widest uppercase text-amapola-900/65 mt-1">Tratamientos</p>
+            <div class="bg-white rounded-xl p-5 border border-amapola-100 shadow-sm">
+              <p class="text-[10px] font-calm font-medium tracking-widest uppercase text-amapola-500 mb-1">Atención</p>
+              <p class="text-sm font-medium text-amapola-900">Lunes a sábado</p>
+              <p class="text-xs font-light text-amapola-900/60 mt-0.5">Turno online 24/7</p>
             </div>
-            <div class="bg-white/60 backdrop-blur-sm rounded-xl p-5 border border-white/80 shadow-sm text-center">
-              <p class="font-heading text-3xl font-bold text-amapola-500">10</p>
-              <p class="text-[10px] font-calm font-medium tracking-widest uppercase text-amapola-900/65 mt-1">Combos</p>
+            <div class="bg-white rounded-xl p-5 border border-amapola-100 shadow-sm">
+              <p class="text-[10px] font-calm font-medium tracking-widest uppercase text-amapola-500 mb-1">Contacto</p>
+              <a href="https://wa.me/5491159029792" target="_blank" rel="noopener" class="text-sm font-medium text-amapola-900 hover:text-amapola-500 transition-colors">WhatsApp</a>
+              <p class="text-xs font-light text-amapola-900/60 mt-0.5">+54 9 11 5902-9792</p>
             </div>
           </div>
         </div>
@@ -983,8 +998,8 @@
     const mobileMenu   = document.getElementById('mobileMenu');
     const menuOverlay  = document.getElementById('menuOverlay');
 
-    function openMenu()  { mobileMenu.classList.add('open'); menuOverlay.classList.remove('hidden'); document.body.style.overflow='hidden'; }
-    function closeMenu() { mobileMenu.classList.remove('open'); menuOverlay.classList.add('hidden'); document.body.style.overflow=''; }
+    function openMenu()  { mobileMenu.classList.add('open'); menuOverlay.classList.remove('hidden'); document.body.style.overflow='hidden'; menuBtn.setAttribute('aria-expanded','true'); }
+    function closeMenu() { mobileMenu.classList.remove('open'); menuOverlay.classList.add('hidden'); document.body.style.overflow=''; menuBtn.setAttribute('aria-expanded','false'); }
 
     menuBtn.addEventListener('click', openMenu);
     closeMenuBtn.addEventListener('click', closeMenu);
