@@ -192,18 +192,19 @@
 <body class="bg-amapola-50 text-amapola-900 font-body leading-snug">
 
   <!-- NAV -->
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" aria-label="Navegación principal">
     <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
       <a id="logo-link" href="#" class="flex items-center gap-2.5 tracking-wide" title="Amapola Studio">
         <img src="https://z-cdn-media.chatglm.cn/files/c7ab1066-29cd-47a8-aee1-4ca7d5914bf2.png?auth_key=1877316330-4f9b2bee32d94cbcbc712476efbb1835-0-c88e1d84b5e0e998f71d9ffca242fece"
              alt="Amapola Studio" class="h-8 w-auto" />
       </a>
       <div class="hidden md:flex items-center gap-8">
-        <a href="#servicios" class="nav-link text-amapola-500/70 text-[11px] font-calm font-medium tracking-[0.18em] uppercase hover:text-amapola-500 transition-colors duration-300">Servicios</a>
-        <a href="#combos"    class="nav-link text-amapola-500/70 text-[11px] font-calm font-medium tracking-[0.18em] uppercase hover:text-amapola-500 transition-colors duration-300">Combos</a>
-        <a href="#nosotras"  class="nav-link text-amapola-500/70 text-[11px] font-calm font-medium tracking-[0.18em] uppercase hover:text-amapola-500 transition-colors duration-300">Nosotras</a>
+        <a href="#servicios" class="nav-link text-amapola-500/70 text-[11px] font-calm font-medium tracking-[0.18em] uppercase hover:text-amapola-500 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amapola-500 rounded-sm">Servicios</a>
+        <a href="#combos"    class="nav-link text-amapola-500/70 text-[11px] font-calm font-medium tracking-[0.18em] uppercase hover:text-amapola-500 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amapola-500 rounded-sm">Combos</a>
+        <a href="#nosotras"  class="nav-link text-amapola-500/70 text-[11px] font-calm font-medium tracking-[0.18em] uppercase hover:text-amapola-500 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amapola-500 rounded-sm">Nosotras</a>
+        <a href="#ubicacion" class="nav-link text-amapola-500/70 text-[11px] font-calm font-medium tracking-[0.18em] uppercase hover:text-amapola-500 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amapola-500 rounded-sm">Ubicación</a>
         <a href="https://turnos.amapolastudio.online" target="_blank" rel="noopener"
-           class="bg-amapola-500 text-white text-[11px] font-calm font-medium tracking-[0.18em] uppercase px-5 py-2.5 rounded-full hover:bg-amapola-600 transition-colors duration-300">
+           class="bg-amapola-500 text-white text-[11px] font-calm font-medium tracking-[0.18em] uppercase px-5 py-2.5 rounded-full hover:bg-amapola-600 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amapola-500 focus-visible:ring-offset-2">
           Reservar
         </a>
       </div>
@@ -221,6 +222,7 @@
     <a href="#servicios" class="mobile-link text-sm font-calm font-medium tracking-widest uppercase text-amapola-900 py-3 border-b border-amapola-100">Servicios</a>
     <a href="#combos"    class="mobile-link text-sm font-calm font-medium tracking-widest uppercase text-amapola-900 py-3 border-b border-amapola-100">Combos</a>
     <a href="#nosotras"  class="mobile-link text-sm font-calm font-medium tracking-widest uppercase text-amapola-900 py-3 border-b border-amapola-100">Nosotras</a>
+    <a href="#ubicacion" class="mobile-link text-sm font-calm font-medium tracking-widest uppercase text-amapola-900 py-3 border-b border-amapola-100">Ubicación</a>
     <a href="https://turnos.amapolastudio.online" target="_blank" rel="noopener"
        class="mt-8 bg-amapola-500 text-white text-sm font-calm font-medium tracking-widest uppercase px-5 py-3 rounded-full text-center hover:bg-amapola-600 transition-colors">
       Reservar turno
@@ -246,11 +248,11 @@
       </p>
       <div class="hero-phrase-delay2 mt-9 flex items-center justify-center gap-4">
         <a href="https://turnos.amapolastudio.online" target="_blank" rel="noopener"
-           class="bg-amapola-500 text-white text-[10px] md:text-[11px] font-calm font-medium tracking-[0.18em] uppercase px-6 py-2.5 rounded-full hover:bg-amapola-600 transition-colors duration-300">
+           class="bg-amapola-500 text-white text-[10px] md:text-[11px] font-calm font-medium tracking-[0.18em] uppercase px-6 py-2.5 rounded-full hover:bg-amapola-600 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amapola-500 focus-visible:ring-offset-2">
           Reservar turno
         </a>
         <a href="#servicios"
-           class="border border-amapola-200 text-amapola-500 text-[10px] md:text-[11px] font-calm font-medium tracking-[0.18em] uppercase px-6 py-2.5 rounded-full hover:border-amapola-500 hover:bg-amapola-50 transition-all duration-300">
+           class="border border-amapola-200 text-amapola-500 text-[10px] md:text-[11px] font-calm font-medium tracking-[0.18em] uppercase px-6 py-2.5 rounded-full hover:border-amapola-500 hover:bg-amapola-50 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amapola-500 rounded-full">
           Ver servicios
         </a>
       </div>
@@ -685,6 +687,77 @@
     </div>
   </section>
 
+  <!-- UBICACIÓN -->
+  <section id="ubicacion" class="py-14 md:py-16 px-5 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="fade-up mb-8">
+        <p class="text-amapola-500 text-[10px] font-calm font-medium tracking-[0.3em] uppercase mb-2">Dónde encontrarnos</p>
+        <h2 class="font-heading text-2xl md:text-3xl font-bold tracking-tight text-amapola-900 uppercase">Ubicación</h2>
+      </div>
+      <div class="fade-up grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
+        <!-- Info -->
+        <div class="space-y-5">
+          <div class="flex items-start gap-4">
+            <div class="w-9 h-9 rounded-full bg-amapola-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <i data-lucide="map-pin" class="w-4 h-4 text-amapola-500"></i>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-amapola-900">Tte. Coronel Besares 327</p>
+              <p class="text-xs font-light text-amapola-900/60">B1714 Ituzaingó, Buenos Aires</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-9 h-9 rounded-full bg-amapola-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <i data-lucide="clock" class="w-4 h-4 text-amapola-500"></i>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-amapola-900">Lunes a sábado · Abre a las 9 a.m.</p>
+              <p class="text-xs font-light text-amapola-900/60">Reservá tu turno online las 24 hs</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-9 h-9 rounded-full bg-amapola-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <i data-lucide="phone" class="w-4 h-4 text-amapola-500"></i>
+            </div>
+            <div>
+              <a href="tel:+5491159029792" class="text-sm font-medium text-amapola-900 hover:text-amapola-500 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amapola-500 rounded-sm">011 5902-9792</a>
+              <p class="text-xs font-light text-amapola-900/60">También por WhatsApp</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-9 h-9 rounded-full bg-amapola-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <i data-lucide="star" class="w-4 h-4 text-amapola-500"></i>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-amapola-900">5.0 · 14 reseñas en Google</p>
+              <p class="text-xs font-light text-amapola-900/60">Todas de cinco estrellas</p>
+            </div>
+          </div>
+          <div class="pt-2">
+            <a href="https://maps.app.goo.gl/7qWL4rSoBeaovZzz9" target="_blank" rel="noopener"
+               class="inline-flex items-center gap-2 bg-amapola-500 text-white text-[10px] font-calm font-medium tracking-[0.18em] uppercase px-5 py-2.5 rounded-full hover:bg-amapola-600 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amapola-500 focus-visible:ring-offset-2">
+              <i data-lucide="map" class="w-3.5 h-3.5"></i>
+              Cómo llegar
+            </a>
+          </div>
+        </div>
+
+        <!-- Mapa -->
+        <div class="rounded-xl overflow-hidden border border-amapola-100 shadow-sm" style="aspect-ratio:4/3;">
+          <iframe
+            src="https://www.google.com/maps?q=Tte+Coronel+Besares+327,+Ituzaingo,+Buenos+Aires,+Argentina&output=embed&z=16"
+            width="100%" height="100%"
+            style="border:0;display:block;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación de Amapola Studio — Tte. Coronel Besares 327, Ituzaingó">
+          </iframe>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- HISTORIAS REALES -->
   <section id="historias" class="py-14 md:py-16 px-5">
     <div class="max-w-6xl mx-auto">
@@ -885,7 +958,7 @@
       <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-8">
         <a href="#" class="flex items-center gap-2.5">
           <img src="https://z-cdn-media.chatglm.cn/files/c7ab1066-29cd-47a8-aee1-4ca7d5914bf2.png?auth_key=1877316330-4f9b2bee32d94cbcbc712476efbb1835-0-c88e1d84b5e0e998f71d9ffca242fece"
-               alt="Amapola Studio" class="h-7 w-auto brightness-0 invert opacity-70" />
+               alt="Amapola Studio" class="h-7 w-auto brightness-0 invert opacity-70" loading="lazy" />
         </a>
         <div class="flex items-center gap-4">
           <!-- Instagram -->
@@ -918,9 +991,10 @@
       <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-3">
         <p class="text-white/25 text-[10px] font-light tracking-wider">© 2025 Amapola Studio. Todos los derechos reservados.</p>
         <div class="flex items-center gap-5">
-          <a href="#servicios" class="text-white/25 text-[10px] font-light tracking-wider hover:text-white/50 transition-colors">Servicios</a>
+          <a href="#servicios"  class="text-white/25 text-[10px] font-light tracking-wider hover:text-white/50 transition-colors">Servicios</a>
           <a href="#combos"    class="text-white/25 text-[10px] font-light tracking-wider hover:text-white/50 transition-colors">Combos</a>
           <a href="#nosotras"  class="text-white/25 text-[10px] font-light tracking-wider hover:text-white/50 transition-colors">Nosotras</a>
+          <a href="#ubicacion" class="text-white/25 text-[10px] font-light tracking-wider hover:text-white/50 transition-colors">Ubicación</a>
           <a href="https://turnos.amapolastudio.online" target="_blank" rel="noopener"
              class="text-white/25 text-[10px] font-light tracking-wider hover:text-white/50 transition-colors">Reservar</a>
         </div>
@@ -954,11 +1028,14 @@
 
     async function cargarPrecios() {
       actualizarPrecios(PRECIOS_DEFAULT);
+      // Micro-estado de carga: pulse sutil mientras se consulta Supabase
+      const priceEls = document.querySelectorAll('[data-precio]');
+      priceEls.forEach(el => el.style.opacity = '0.45');
       try {
         const r = await fetch(SB_URL + '/rest/v1/precios?select=trat,precio', {
           headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
         });
-        if (!r.ok) return;
+        if (!r.ok) { priceEls.forEach(el => el.style.opacity = ''); return; }
         const data = await r.json();
         if (Array.isArray(data) && data.length > 0) {
           const p = {};
@@ -966,6 +1043,7 @@
           actualizarPrecios(p);
         }
       } catch(e) {}
+      priceEls.forEach(el => el.style.opacity = '');
     }
 
     // ── Admin easter egg: logo × 5 ───────────────────────────
