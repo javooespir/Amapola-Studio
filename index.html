@@ -15,7 +15,7 @@
   <link rel="apple-touch-icon" href="assets/logo-amapola.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/estudio.jpg">
   <script type="application/ld+json">
   {
@@ -57,8 +57,8 @@
       --card: oklch(0.99 0.004 48);
       --wa: #25D366;
 
-      --serif: "Cormorant Garamond", "Cormorant", Georgia, "Times New Roman", serif;
-      --sans: "Outfit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --serif: "League Spartan", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --sans: "League Spartan", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
       --header-h: 5.25rem;
       --r-md: 1.25rem;
@@ -348,6 +348,23 @@
       *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
       .reveal { opacity: 1; transform: none; }
     }
+    /* ── Tipografía única: League Spartan (la del logo). Sin cursivas: el acento de los títulos es solo de color ── */
+    em { font-style: normal; }
+    .h-display { font-weight: 600; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1; letter-spacing: -0.025em; }
+    .h-section { font-weight: 600; font-size: clamp(2.1rem, 4.4vw, 3.6rem); line-height: 1.02; letter-spacing: -0.02em; }
+    .h-display em, .h-section em { font-style: normal; }
+    .mobile-link { font-size: 1.9rem; font-weight: 500; letter-spacing: -0.01em; }
+    .hero-photo figcaption { font-style: normal; font-weight: 500; font-size: 1.2rem; }
+    .marquee-track span { font-size: clamp(1.35rem, 2.7vw, 2.1rem); font-weight: 500; letter-spacing: -0.01em; }
+    .preview-card p.t { font-size: 1.75rem; font-weight: 600; letter-spacing: -0.015em; }
+    .preview-card p.d strong { font-size: 1.3rem; font-weight: 600; }
+    .treat h3 { font-size: 1.35rem; font-weight: 500; letter-spacing: -0.01em; }
+    .reveal-text { font-size: clamp(1.25rem, 2.4vw, 1.85rem); line-height: 1.35; letter-spacing: -0.01em; }
+    .bento .quote p { font-style: normal; font-weight: 500; font-size: clamp(1.3rem, 2.4vw, 1.8rem); line-height: 1.15; }
+    .bento .info-tile .serif { font-size: 1.45rem; font-weight: 600; }
+    .features dt { font-size: 1.3rem; font-weight: 500; }
+    .rev blockquote { font-size: 1.15rem; line-height: 1.4; }
+    .rating strong { font-size: 1.3rem; font-weight: 600; }
   </style>
 </head>
 <body class="no-js">
@@ -401,7 +418,6 @@
       <div class="glow b" aria-hidden="true"></div>
       <div class="wrap hero-grid">
         <div class="hero-copy rise">
-          <p class="eyebrow">Cejas · Pestañas · Rostro · Cuerpo</p>
           <h1 class="h-display" id="hero-title">Resaltá tu belleza <span class="inline-pill" aria-hidden="true"><img src="assets/estudio.jpg" alt=""></span> <em>natural.</em></h1>
           <p class="lead">Estética facial y corporal para verte y sentirte bien. Cada tratamiento, pensado para vos. Elegís el día y el horario, y reservás online cuando quieras.</p>
           <div class="hero-ctas">
