@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="assets/estudio.jpg">
+  <link rel="preload" as="image" href="assets/fotos/gabinete.jpg">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -24,7 +24,7 @@
     "name": "Amapola Studio",
     "description": "Estética facial y corporal: lifting de pestañas, laminado y perfilado de cejas, limpieza facial profunda, peeling y drenaje linfático manual.",
     "url": "https://amapolastudio.online",
-    "image": "https://amapolastudio.online/assets/estudio.jpg",
+    "image": "https://amapolastudio.online/assets/fotos/gabinete.jpg",
     "logo": "https://amapolastudio.online/assets/logo-amapola.png",
     "telephone": "+5491159029792",
     "priceRange": "$$",
@@ -365,6 +365,13 @@
     .features dt { font-size: 1.3rem; font-weight: 500; }
     .rev blockquote { font-size: 1.15rem; line-height: 1.4; }
     .rating strong { font-size: 1.3rem; font-weight: 600; }
+    /* ── Fotos reales en la tarjeta de categoría ── */
+    .preview-card .pv-foto { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+    .preview-card::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, oklch(0.285 0.093 15 / .92) 0%, oklch(0.285 0.093 15 / .55) 38%, transparent 70%); }
+    .preview-card p { z-index: 2; }
+    .preview-card:hover .pv-foto { transform: scale(1.03); }
+    .hero-photo img { object-position: 50% 70%; }
+    .inline-pill img { object-position: 50% 50%; }
   </style>
 </head>
 <body class="no-js">
@@ -418,7 +425,7 @@
       <div class="glow b" aria-hidden="true"></div>
       <div class="wrap hero-grid">
         <div class="hero-copy rise">
-          <h1 class="h-display" id="hero-title">Resaltá tu belleza <span class="inline-pill" aria-hidden="true"><img src="assets/estudio.jpg" alt=""></span> <em>natural.</em></h1>
+          <h1 class="h-display" id="hero-title">Resaltá tu belleza <span class="inline-pill" aria-hidden="true"><img src="assets/fotos/mirada.jpg" alt=""></span> <em>natural.</em></h1>
           <p class="lead">Estética facial y corporal para verte y sentirte bien. Cada tratamiento, pensado para vos. Elegís el día y el horario, y reservás online cuando quieras.</p>
           <div class="hero-ctas">
             <a class="btn btn-primary btn-lg" href="https://turnos.amapolastudio.online" target="_blank" rel="noopener">Reservar turno</a>
@@ -427,7 +434,7 @@
         </div>
         <div class="hero-media">
           <figure class="hero-photo rise d1">
-            <img src="assets/estudio.jpg" alt="El gabinete de Amapola Studio: dos camillas, luz de ventana y lámparas colgantes" width="900" height="1600" fetchpriority="high">
+            <img src="assets/fotos/gabinete.jpg" alt="El gabinete de Amapola Studio: dos camillas, luz de ventana y lámparas colgantes" width="1050" height="1400" fetchpriority="high">
             <figcaption>Ituzaingó, Buenos Aires.</figcaption>
           </figure>
           <div class="hero-badge rise d2" aria-hidden="true">
@@ -459,7 +466,7 @@
         <div class="treat-grid">
           <div class="preview" aria-hidden="true">
             <div class="preview-card grain" id="preview">
-              <img class="flower" src="assets/logo-amapola.png" alt="">
+              <img class="pv-foto" id="pv-foto" src="assets/fotos/cat-cejas.jpg" alt="" width="825" height="1100">
               <p class="k" id="pv-k"></p>
               <p class="t" id="pv-t"></p>
               <p class="d" id="pv-d"></p>
@@ -481,7 +488,7 @@
 
         <div class="bento">
           <figure class="span-tall">
-            <div class="bento-img"><img src="assets/estudio.jpg" alt="Camillas del gabinete con luz natural de ventana" loading="lazy" width="900" height="1600"></div>
+            <div class="bento-img"><img src="assets/fotos/recepcion.jpg" alt="Recepción de Amapola Studio con el logo en la pared y la camilla al fondo" loading="lazy" width="1050" height="1400"></div>
           </figure>
           <figure class="quote span-wide">
             <p>“Resaltá tu belleza natural.”</p>
@@ -491,8 +498,8 @@
             <span class="serif">5.0</span>
             <span>14 reseñas en Google, todas de cinco estrellas</span>
           </figure>
-          <figure class="logo-tile">
-            <div class="bento-img" style="display:flex;align-items:center;justify-content:center;padding:1rem"><img src="assets/logo-amapola.png" alt="Logo de Amapola Studio" loading="lazy" width="504" height="495"></div>
+          <figure>
+            <div class="bento-img"><img src="assets/fotos/resultado-cejas.jpg" alt="Resultado de laminado de cejas y lifting de pestañas" loading="lazy" width="750" height="1000"></div>
           </figure>
           <figure class="info-tile span-wide" style="background:var(--cream)">
             <span class="serif">Reservá online, las 24 hs.</span>
@@ -696,19 +703,19 @@
     // ── Tratamientos (textos reales de la web; precios desde Supabase) ──
     const TURNOS_URL = 'https://turnos.amapolastudio.online';
     const CATEGORIAS = [
-      { id: 'cejas', label: 'Cejas y pestañas', blurb: 'Mirada definida, sin maquillaje.', items: [
+      { id: 'cejas', label: 'Cejas y pestañas', blurb: 'Mirada definida, sin maquillaje.', foto: 'assets/fotos/cat-cejas.jpg', alt: 'Lifting de pestañas terminado, primer plano de la mirada', items: [
         { k: 'lp', n: 'Lifting de Pestañas', dur: '1 hora', tag: 'Más pedido', desc: 'Tratamiento químico que arquea y levanta la pestaña natural. Tintura incluida para dar definición y nutrición desde la raíz. No duele y se adapta a cualquier largo. Resultado duradero que abre y realza la mirada.', care: 'Las pestañas no pueden mojarse ni pintarse por 24 hs después del tratamiento.' },
         { k: 'pc', n: 'Perfilado de Cejas', dur: '30 min', desc: 'Realizado con pinza, tijera y cepillo. Dejamos las cejas prolijas, afinando lo mínimo necesario y adaptando la forma al tipo de rostro y gustos de cada clienta.' },
         { k: 'lac', n: 'Laminado de Cejas', dur: '30 a 45 min', desc: 'Proceso químico que deja las cejas alisadas, definidas, prolijas y maleables. Incluye perfilado y nutrición desde la raíz. Resultado: cejas peinadas en la forma que quieras.', care: 'Las cejas no pueden mojarse ni pintarse por 24 hs después del tratamiento.' }
       ]},
-      { id: 'rostro', label: 'Rostro', blurb: 'Piel limpia, luminosa y cuidada.', items: [
+      { id: 'rostro', label: 'Rostro', blurb: 'Piel limpia, luminosa y cuidada.', foto: 'assets/fotos/cat-rostro.jpg', alt: 'Clienta bajo la máscara de luz LED durante un tratamiento facial', items: [
         { k: 'lc', n: 'Limpieza Facial Profunda', dur: '1 h 45 min', tag: 'Recomendado', desc: 'Incluye anamnesis, higiene, punta de diamante, extracciones, máscara, cabina led, hidratación y protección. Todo acorde al biotipo cutáneo y necesidades de la piel.' },
         { k: 'peeling', n: 'Peeling', dur: '30 a 45 min', desc: 'Exfoliación química mediante ácidos para renovar la piel: luminosidad, corrección de manchas, hidratación y atenuar líneas de expresión. Textura uniforme y radiante desde la primera sesión.' }
       ]},
-      { id: 'cuerpo', label: 'Cuerpo', blurb: 'Liviandad y bienestar desde la primera sesión.', items: [
+      { id: 'cuerpo', label: 'Cuerpo', blurb: 'Liviandad y bienestar desde la primera sesión.', foto: 'assets/fotos/cat-cuerpo.jpg', alt: 'Clienta relajada en la camilla bajo la lámpara del gabinete', items: [
         { k: 'dl', n: 'Drenaje Linfático Manual', dur: '1 hora', desc: 'Maniobras suaves y rítmicas que estimulan el sistema linfático, eliminan líquidos retenidos y toxinas. Sensación de ligereza, bienestar y desinflamación desde la primera sesión.', care: 'Incluye bases linfáticas y una zona. Cada zona extra suma $12.000.' }
       ]},
-      { id: 'combos', label: 'Combos', blurb: 'Combiná tratamientos y aprovechá un precio especial.', items: [
+      { id: 'combos', label: 'Combos', blurb: 'Combiná tratamientos y aprovechá un precio especial.', foto: 'assets/fotos/cat-combos.jpg', alt: 'Clienta en la camilla durante un combo de cejas y pestañas', items: [
         { k: 'combo1', n: 'Lifting + Perfilado', dur: '~1 hora', inc: ['Lifting de Pestañas', 'Perfilado de Cejas'] },
         { k: 'combo2', n: 'Lifting + Laminado', dur: '~1 hora', inc: ['Lifting de Pestañas', 'Laminado de Cejas'] },
         { k: 'combo3', n: 'Limpieza + Lifting', dur: '~2 horas', inc: ['Limpieza Facial Profunda', 'Lifting de Pestañas'] },
@@ -756,6 +763,9 @@
     function renderPreview() {
       const cat = CATEGORIAS.find(c => c.id === catActual);
       const desde = Math.min(...cat.items.map(t => Number(preciosActuales[t.k] ?? PRECIOS_DEFAULT[t.k])));
+      const foto = document.getElementById('pv-foto');
+      if (foto.getAttribute('src') !== cat.foto) foto.src = cat.foto;
+      foto.alt = cat.alt;
       document.getElementById('pv-k').textContent = cat.label;
       document.getElementById('pv-t').textContent = cat.blurb;
       document.getElementById('pv-d').innerHTML = `${cat.items.length} ${cat.items.length === 1 ? 'tratamiento' : 'opciones'} · desde <strong class="num">${fPeso(desde)}</strong>`;
