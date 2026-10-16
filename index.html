@@ -659,7 +659,8 @@
       lp:20000, pc:13000, lac:20000, lc:35000, peeling:40000, dl:25000,
       combo1:30000, combo2:37000, combo3:52000, combo4:45000,
       combo5:65000, combo6:52000, combo7:65000, combo8:72000,
-      combo9:95000, combo10:100000, combo11:65000
+      combo9:95000, combo10:100000, combo11:65000,
+      combo12:80000, combo13:100000
     };
 
     function fPeso(n) {
@@ -671,6 +672,26 @@
         const k = el.dataset.precio;
         if (precios[k] !== undefined) el.textContent = fPeso(precios[k]);
       });
+    }
+
+    // Tratamientos activados o desactivados desde el panel
+    async function cargarOcultos() {
+      try {
+        const r = await fetch(SB_URL + '/rest/v1/config?select=key,value&key=eq.ocultos', {
+          headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
+        });
+        if (!r.ok) return;
+        const data = await r.json();
+        if (!Array.isArray(data) || data.length === 0) return;
+        OCULTOS = String(data[0].value || '').split(',').map(x => x.trim()).filter(Boolean);
+        const actual = CATEGORIAS.find(c => c.id === catActual);
+        if (!actual || !itemsVisibles(actual).length) {
+          catActual = (CATEGORIAS.find(c => itemsVisibles(c).length) || CATEGORIAS[0]).id;
+        }
+        renderTabs();
+        renderLista();
+        mostrarTabActiva();
+      } catch(e) {}
     }
 
     async function cargarPrecios() {
@@ -726,23 +747,29 @@
         { k: 'combo8', n: 'Limpieza + Lifting + Laminado', dur: '~2 horas', inc: ['Limpieza Facial Profunda', 'Lifting de Pestañas', 'Laminado de Cejas'] },
         { k: 'combo9', n: 'Limpieza + Lifting + Drenaje + Perfilado', dur: '~2 h 30 min', inc: ['Limpieza Facial Profunda', 'Lifting de Pestañas', 'Drenaje Linfático Manual', 'Perfilado de Cejas'] },
         { k: 'combo10', n: 'Limpieza + Lifting + Drenaje + Laminado', dur: '~2 h 30 min', tag: 'Completo', inc: ['Limpieza Facial Profunda', 'Lifting de Pestañas', 'Drenaje Linfático Manual', 'Laminado de Cejas'] },
-        { k: 'combo11', n: 'Peeling + Lifting de Pestañas', dur: '~1 h 45 min', inc: ['Peeling', 'Lifting de Pestañas'] }
+        { k: 'combo11', n: 'Peeling + Lifting de Pestañas', dur: '~1 h 45 min', inc: ['Peeling', 'Lifting de Pestañas'] },
+        { k: 'combo12', n: 'Lifting + Perfilado + Drenaje', dur: '~2 h 30 min', inc: ['Lifting de Pestañas', 'Perfilado de Cejas', 'Drenaje Linfático Manual'] },
+        { k: 'combo13', n: 'Limpieza + Perfilado + Drenaje', dur: '~2 h 30 min', inc: ['Limpieza Facial Profunda', 'Perfilado de Cejas', 'Drenaje Linfático Manual'] }
       ]}
     ];
+
+    // Tratamientos fuera de temporada: la lista real llega de Supabase (config.ocultos)
+    let OCULTOS = ['peeling', 'combo11'];
+    const itemsVisibles = cat => cat.items.filter(t => !OCULTOS.includes(t.k));
 
     let catActual = location.hash === '#combos' ? 'combos' : 'cejas';
     let preciosActuales = { ...PRECIOS_DEFAULT };
 
     function renderTabs() {
-      document.getElementById('tabs').innerHTML = CATEGORIAS.map(c =>
-        `<button type="button" class="tab" role="tab" id="tab-${c.id}" aria-selected="${c.id === catActual}" aria-controls="panel" tabindex="${c.id === catActual ? 0 : -1}" data-cat="${c.id}">${c.label}<small>${c.items.length}</small></button>`
+      document.getElementById('tabs').innerHTML = CATEGORIAS.filter(c => itemsVisibles(c).length).map(c =>
+        `<button type="button" class="tab" role="tab" id="tab-${c.id}" aria-selected="${c.id === catActual}" aria-controls="panel" tabindex="${c.id === catActual ? 0 : -1}" data-cat="${c.id}">${c.label}<small>${itemsVisibles(c).length}</small></button>`
       ).join('');
     }
 
     function renderLista() {
       const cat = CATEGORIAS.find(c => c.id === catActual);
       document.getElementById('panel').setAttribute('aria-labelledby', 'tab-' + cat.id);
-      document.getElementById('treatList').innerHTML = cat.items.map(t => `
+      document.getElementById('treatList').innerHTML = itemsVisibles(cat).map(t => `
         <li class="treat">
           ${t.tag ? `<span class="tag">${t.tag}</span>` : ''}
           <div class="treat-top">
@@ -762,13 +789,14 @@
 
     function renderPreview() {
       const cat = CATEGORIAS.find(c => c.id === catActual);
-      const desde = Math.min(...cat.items.map(t => Number(preciosActuales[t.k] ?? PRECIOS_DEFAULT[t.k])));
+      const items = itemsVisibles(cat);
+      const desde = Math.min(...items.map(t => Number(preciosActuales[t.k] ?? PRECIOS_DEFAULT[t.k])));
       const foto = document.getElementById('pv-foto');
       if (foto.getAttribute('src') !== cat.foto) foto.src = cat.foto;
       foto.alt = cat.alt;
       document.getElementById('pv-k').textContent = cat.label;
       document.getElementById('pv-t').textContent = cat.blurb;
-      document.getElementById('pv-d').innerHTML = `${cat.items.length} ${cat.items.length === 1 ? 'tratamiento' : 'opciones'} · desde <strong class="num">${fPeso(desde)}</strong>`;
+      document.getElementById('pv-d').innerHTML = `${items.length} ${items.length === 1 ? 'tratamiento' : 'opciones'} · desde <strong class="num">${fPeso(desde)}</strong>`;
       const card = document.getElementById('preview');
       card.classList.remove('fade-swap'); void card.offsetWidth; card.classList.add('fade-swap');
     }
@@ -814,6 +842,7 @@
       renderPreview();
     };
     cargarPrecios();
+    cargarOcultos();
 
     // ── Marquee ──────────────────────────────────────────────
     (function () {
